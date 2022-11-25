@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "User")
 public class User {
 	@Id
-	private Object id;
-	private int id_user;
+	private String id;
+//	private int id_user;
 	private String username;
 	private String email;
 	private String password;
@@ -18,11 +18,12 @@ public class User {
 	private Date dob;
 	private String gender;
 
-	public User(Object id, int id_user, String username, String email, String password, int score, int role, Date dob,
+	
+
+	public User(String id, String username, String email, String password, int score, int role, Date dob,
 			String gender) {
 		super();
 		this.id = id;
-		this.id_user = id_user;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -34,18 +35,6 @@ public class User {
 
 	public Object getId() {
 		return id;
-	}
-
-	public void setId(Object id) {
-		this.id = id;
-	}
-
-	public int getId_user() {
-		return id_user;
-	}
-
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
 	}
 
 	public String getUsername() {
