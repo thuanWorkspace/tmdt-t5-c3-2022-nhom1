@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "63804272853fe47cbe059509"
+  },
+  "id_role_access": 0,
+  "name": "private"
+},{
+  "_id": {
+    "$oid": "638042a6853fe47cbe05950a"
+  },
+  "id_role_access": 1,
+  "name": "shared"
+},{
+  "_id": {
+    "$oid": "638042b6853fe47cbe05950b"
+  },
+  "id_role_access": 2,
+  "name": "public"
+}]

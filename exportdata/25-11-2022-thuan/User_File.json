@@ -1,0 +1,9 @@
+[{
+  "_id": {
+    "$oid": "638041e7853fe47cbe059507"
+  },
+  "id_user_file": 1,
+  "id_user": 1,
+  "id_file": 1,
+  "id_role_access": 1
+}]

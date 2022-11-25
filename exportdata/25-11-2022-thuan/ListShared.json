@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "638042cd853fe47cbe05950d"
+  },
+  "id_file": 1,
+  "id_user_own": 1,
+  "id_user_share": 1
+},{
+  "_id": {
+    "$oid": "6380439d853fe47cbe05950e"
+  },
+  "id_file": 1,
+  "id_user_own": 1,
+  "id_user_share": 2
+}]

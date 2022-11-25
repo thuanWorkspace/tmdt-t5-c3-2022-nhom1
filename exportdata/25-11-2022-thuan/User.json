@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "637f925c92c54d6cc0ff5075"
+  },
+  "username": "thuan",
+  "email": "19130222@st.hcmuaf.edu.vn",
+  "password": "1234",
+  "role": 1,
+  "score": 0,
+  "id_user": 1,
+  "dob": {
+    "$date": {
+      "$numberLong": "1008374400000"
+    }
+  },
+  "gender": "male"
+}]
