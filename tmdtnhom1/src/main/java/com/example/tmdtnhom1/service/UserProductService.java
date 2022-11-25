@@ -13,7 +13,6 @@ public class UserProductService {
 		paymentOnline();
 	}
 
-	// api: /payment
 	public void paymentOnline() {
 
 	}
