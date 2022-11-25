@@ -22,38 +22,44 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	// user
+	// hieu
 	// login by email only.
 	//api:  /login
 	public void login(String email, String password) {
 
 	}
+	// hieu
 	// api: /register
 	public void register() {
 
 	}
+	// hieu
 	//api: /googleLogin
 	public void googleLogin() {
 
 	}
+	// hieu
 	//api: /facebookLogin
 	public void facebookLogin() {
 
 	}
+	// hieu
 	//api: /logOut
 	public void logOut() {
 
 	}
-
+	// hieu
 	// forgot password
 	//api: /resetPassword
 	public void resetPassword() {
 
 	}
+	// hieu
 	//api: /changePassword
 	public void changePassword() {
 
 	}
+	// hieu
 	//api: /user
 	public void getUser() {
 		

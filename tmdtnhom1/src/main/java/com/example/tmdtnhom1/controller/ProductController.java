@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/productapi")
 public class ProductController {
-	
+	//phu
 	//api: /products  
 	public void listProducts() {
 		
 	}
+	//phu
 	//api: /product/{id}    
 	public void getProduct() {
 		

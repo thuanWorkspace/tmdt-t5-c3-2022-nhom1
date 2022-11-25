@@ -21,36 +21,43 @@ public class UserFileController {
 	@Autowired
 	UserFileService userFileService;
 
+	// tien
 	// api: /upload
 	public void uploadfile() {
 	}
 
+	// tien
 	// api: /delete
 	public void deletefile() {
 
 	}
 
+	// tien
 	// api: /searchpublicfile
 	public void searchPublicFile() {
-
+	
 	}
 
+	// tien
 	// api: /changerole
 	public void changeRoleFile() {
 
 	}
 
+	// tien
 	// api: /downloadpublicfile
 	public void downloadPublicFile() {
 		userFileService.downloadPublicFile();
 	}
 
+	// tien
 	// api: /sharefile
 	// owner shares file to user
 	public void FileShareToUser(User owner, File file, User user) {
 
 	}
 
+	// tien
 	// api: /createfolder
 	public void createFolder() {
 
