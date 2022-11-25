@@ -43,7 +43,11 @@ public class UserFileController {
 	public void changeRoleFile() {
 
 	}
-
+	// tien
+	// api: /showMyFiles
+	public void showMyFiles() {
+		
+	}
 	// tien
 	// api: /downloadpublicfile
 	public void downloadPublicFile() {
