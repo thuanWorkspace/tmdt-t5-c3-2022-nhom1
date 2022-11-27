@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+import Footer from "./footer/Footer";
 
 function Register() {
   return (
@@ -26,7 +26,6 @@ function Register() {
           ĐĂNG NHẬP
         </Link>
       </span>
-
       <Footer />
     </div>
   );
