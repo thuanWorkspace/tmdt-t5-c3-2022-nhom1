@@ -18,10 +18,23 @@ public class User {
 	private Date dob;
 	private String gender;
 
-	
+
+	public User() {
+	}
+
+	public User(String username, String email, String password, int score, int role, Date dob, String gender) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.score = score;
+		this.role = role;
+		this.dob = dob;
+		this.gender = gender;
+	}
 
 	public User(String id, String username, String email, String password, int score, int role, Date dob,
-			String gender) {
+				String gender) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -33,7 +46,7 @@ public class User {
 		this.gender = gender;
 	}
 
-	public Object getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -93,4 +106,7 @@ public class User {
 		this.gender = gender;
 	}
 
+	public void updateScore(Product product){
+		this.score = score + product.getScore();
+	}
 }
