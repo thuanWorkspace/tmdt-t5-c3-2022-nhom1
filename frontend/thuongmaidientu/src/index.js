@@ -7,17 +7,19 @@ import reportWebVitals from "./reportWebVitals";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
+import Login from "./components/Login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-     <Routes>
-     <Route path="/home" element={<Home />} />
-      <Route path="/filemanager" element={<App />} />
-      <Route path="/" element={<Navbar />} />
-      <Route path="/register" element={<Register />} />
-     </Routes>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/filemanager" element={<App />} />
+        <Route path="/" element={<Navbar />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </Router>
   </React.StrictMode>
 );
