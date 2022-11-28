@@ -23,7 +23,7 @@ public class UserProductController {
 	public void historyBoughtProduct() {
 
 	}
-	// api: /available product
+	// api: /availableProduct
 	public void getAvailableProduct() {
 		
 	}
