@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function FooterItem() {
+export default function FooterItem({ name, listItem }) {
   return (
     <ul className="">
-      <h3 className="">Fshare</h3>
-      <li className="">Tính năng</li>
-      <li className="">Tính năng</li>
-      <li className="">Tính năng</li>
-      <li className="">Tính năng</li>
+      <h3 className="">{name}</h3>
+
+      {listItem.map((item) => (
+        <li className="">{item}</li>
+      ))}
     </ul>
   );
 }
