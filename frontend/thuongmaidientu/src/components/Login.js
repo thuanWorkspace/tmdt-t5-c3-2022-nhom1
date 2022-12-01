@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Footer from "./footer/Footer";
 
-function Register() {
+function Login() {
   return (
     <div>
       <span className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1">
@@ -20,14 +20,14 @@ function Register() {
         </ul>
 
         <Link
-          to="/home"
+          to="/register"
           className="bg-red-600 p-3 text-white font-medium text-sm"
         >
-          ĐĂNG NHẬP
+          ĐĂNG KÝ
         </Link>
       </span>
       <Footer />
     </div>
   );
 }
-export default Register;
+export default Login;

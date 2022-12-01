@@ -1,7 +1,7 @@
 import "./App.css";
+import Footer from "./components/footer/Footer";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
-import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <SideBar />
         <Header />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

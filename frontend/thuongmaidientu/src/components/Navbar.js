@@ -16,13 +16,21 @@ function Navbar() {
         <li className="mr-12">EVENT</li>
         <li className="mr-12">NÂNG CẤP</li>
       </ul>
+      <span className="">
+        <Link
+          to="/register"
+          className="bg-red-600 p-3 text-white font-medium text-sm mr-3"
+        >
+          ĐĂNG KÝ
+        </Link>
 
-      <Link
-        to="/register"
-        className="bg-red-600 p-3 text-white font-medium text-sm"
-      >
-        ĐĂNG KÝ
-      </Link>
+        <Link
+          to="/login"
+          className="bg-red-600 p-3 text-white font-medium text-sm"
+        >
+          ĐĂNG NHẬP
+        </Link>
+      </span>
     </div>
   );
 }
