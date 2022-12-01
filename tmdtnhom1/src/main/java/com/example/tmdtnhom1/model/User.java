@@ -109,4 +109,11 @@ public class User {
 	public void updateScore(Product product){
 		this.score = score + product.getScore();
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", score="
+				+ score + ", role=" + role + ", dob=" + dob + ", gender=" + gender + "]";
+	}
+	
 }
