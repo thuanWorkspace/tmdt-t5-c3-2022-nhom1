@@ -1,0 +1,81 @@
+[{
+  "_id": {
+    "$oid": "637f925c92c54d6cc0ff5075"
+  },
+  "username": "thuan",
+  "email": "19130222@st.hcmuaf.edu.vn",
+  "password": "1234",
+  "role": 1,
+  "score": 0,
+  "gender": "male"
+},{
+  "_id": {
+    "$oid": "638867b884f07b9363fe5e24"
+  },
+  "username": "hieu",
+  "email": "19130072@st.hcmuaf.edu.vn",
+  "password": "hieu",
+  "role": 1,
+  "score": 10,
+  "gender": "male"
+},{
+  "_id": {
+    "$oid": "6388688984f07b9363fe5e26"
+  },
+  "username": "tuan",
+  "email": "tuan@gmail.com",
+  "password": "tuankute",
+  "role": 0,
+  "score": 10,
+  "gender": "male"
+},{
+  "_id": {
+    "$oid": "638868bb84f07b9363fe5e27"
+  },
+  "username": "ha",
+  "email": "hanguyen@gmail.com",
+  "password": "9876",
+  "role": 0,
+  "score": 10,
+  "gender": "female"
+},{
+  "_id": {
+    "$oid": "638868f184f07b9363fe5e28"
+  },
+  "username": "thuy",
+  "email": "thuytran@gmail.com",
+  "password": "thuy123",
+  "role": 0,
+  "score": 0,
+  "gender": "female"
+},{
+  "_id": {
+    "$oid": "638869a884f07b9363fe5e29"
+  },
+  "username": "trieutien",
+  "email": "trieutien@gmail.com",
+  "password": "tien",
+  "role": 1,
+  "score": 30,
+  "gender": "male"
+},{
+  "_id": {
+    "$oid": "63886d5084f07b9363fe5e2b"
+  },
+  "username": "thanh",
+  "email": "tuthanh@gmail.com",
+  "password": "123456",
+  "role": 1,
+  "score": 30,
+  "gender": "male"
+},{
+  "_id": {
+    "$oid": "6388818684f07b9363fe5e2e"
+  },
+  "username": "hung",
+  "email": "hungphan@gmail.com",
+  "password": "hung123",
+  "role": 1,
+  "score": 0,
+  "gender": "male"
+}]
