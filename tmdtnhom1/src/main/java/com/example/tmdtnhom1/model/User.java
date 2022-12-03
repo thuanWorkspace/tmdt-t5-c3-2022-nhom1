@@ -15,36 +15,46 @@ public class User {
 	private String password;
 	private int score;
 	private int role;
-	private Date dob;
+//	private Date dob;
 	private String gender;
 
 
 	public User() {
 	}
 
-	public User(String username, String email, String password, int score, int role, Date dob, String gender) {
+public User(String username, String email, String password, int score, int role, String gender) {
 		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.score = score;
 		this.role = role;
-		this.dob = dob;
 		this.gender = gender;
 	}
 
-	public User(String id, String username, String email, String password, int score, int role, Date dob,
-				String gender) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.score = score;
-		this.role = role;
-		this.dob = dob;
-		this.gender = gender;
-	}
+//	public User(String username, String email, String password, int score, int role, Date dob, String gender) {
+//		super();
+//		this.username = username;
+//		this.email = email;
+//		this.password = password;
+//		this.score = score;
+//		this.role = role;
+//		this.dob = dob;
+//		this.gender = gender;
+//	}
+//
+//	public User(String id, String username, String email, String password, int score, int role, Date dob,
+//				String gender) {
+//		super();
+//		this.id = id;
+//		this.username = username;
+//		this.email = email;
+//		this.password = password;
+//		this.score = score;
+//		this.role = role;
+//		this.dob = dob;
+//		this.gender = gender;
+//	}
 
 	public String getId() {
 		return id;
@@ -90,13 +100,13 @@ public class User {
 		this.role = role;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+//	public Date getDob() {
+//		return dob;
+//	}
+//
+//	public void setDob(Date dob) {
+//		this.dob = dob;
+//	}
 
 	public String getGender() {
 		return gender;
@@ -110,10 +120,16 @@ public class User {
 		this.score = score + product.getScore();
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", score="
-				+ score + ", role=" + role + ", dob=" + dob + ", gender=" + gender + "]";
+				+ score + ", role=" + role + ", gender=" + gender + "]";
 	}
+
+	
 	
 }

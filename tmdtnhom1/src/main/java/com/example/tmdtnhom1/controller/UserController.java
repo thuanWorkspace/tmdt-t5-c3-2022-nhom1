@@ -96,7 +96,7 @@ public class UserController {
 	public ResponseEntity<User> store(@RequestBody User user) {
 		try {
 			User _user = userService.save(new User(user.getUsername(),user.getEmail(),
-					user.getPassword(),user.getRole(),user.getScore(),user.getDob(),user.getGender()));
+					user.getPassword(),user.getRole(),user.getScore(),user.getGender()));
 
 			if(_user != null) {
 				return new ResponseEntity<User>(_user, HttpStatus.CREATED);
