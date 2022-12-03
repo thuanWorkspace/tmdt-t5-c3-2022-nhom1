@@ -10,16 +10,13 @@ public class File {
     private String file_name;
     private String owner;
     private long size;
-    private String parentFile;
 
 
-
-    public File(String name, String owner, long size, String parentFile) {
+    public File(String name, String owner, long size) {
         super();
         this.file_name = name;
         this.owner = owner;
         this.size = size;
-        this.parentFile = parentFile;
     }
 
     public File(){
@@ -40,14 +37,6 @@ public class File {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getParentFile() {
-        return parentFile;
-    }
-
-    public void setParentFile(String parentFile) {
-        this.parentFile = parentFile;
     }
 
     public String getFile_name() {
@@ -73,7 +62,6 @@ public class File {
                 "name='" + file_name + '\'' +
                 ", owner='" + owner + '\'' +
                 ", size=" + size +
-                ", parentId='" + parentFile + '\'' +
                 '}';
     }
 }

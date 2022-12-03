@@ -3,32 +3,34 @@ package com.example.tmdtnhom1.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Document(collection = "Product")
 public class Product {
     @Id
     private String id;
-    private int id_product;
     private String product_name;
+    private long storage;// = byte
+    private long transfer;//= byte
+    private int period ;//= hour
+
     private double price;
     private int score;
 
-    public Product(int id_product, String product_name, double price, int score) {
-        this.id_product = id_product;
+
+
+    public Product(String product_name, long storage, long transfer, int period, double price, int score) {
         this.product_name = product_name;
+        this.storage = storage;
+        this.transfer = transfer;
+        this.period = period;
         this.price = price;
         this.score = score;
     }
 
     public Product() {
         super();
-    }
-
-    public int getId_product() {
-        return id_product;
-    }
-
-    public void setId_product(int id_product) {
-        this.id_product = id_product;
     }
 
     public String getProduct_name() {
@@ -55,13 +57,45 @@ public class Product {
         this.score = score;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public long getStorage() {
+        return storage;
+    }
+
+    public void setStorage(long storage) {
+        this.storage = storage;
+    }
+
+    public long getTransfer() {
+        return transfer;
+    }
+
+    public void setTransfer(long transfer) {
+        this.transfer = transfer;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
-                "id_product=" + id_product +
+                "id='" + id + '\'' +
                 ", product_name='" + product_name + '\'' +
+                ", storage=" + storage +
+                ", transfer=" + transfer +
+                ", period=" + period +
                 ", price=" + price +
                 ", score=" + score +
                 '}';
     }
+
 }

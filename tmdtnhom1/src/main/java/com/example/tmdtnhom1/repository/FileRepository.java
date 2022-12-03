@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
 public interface FileRepository extends MongoRepository<File,String> {
-    @Query("{'owner' :  ?0,'parentFile': 'root'}")
+    @Query("{'owner' :  ?0}")
     public List<File> getUserRootFile(String owner);
 
 
