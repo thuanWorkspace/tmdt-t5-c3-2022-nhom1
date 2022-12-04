@@ -123,7 +123,7 @@ public class FileController {
     @PostMapping("/file/upload/{id_user}")
     public ResponseEntity<File> upload(@RequestBody File file,@PathVariable("id_user") String id_user){
     	try {
-    		return new ResponseEntity<File>(fileService.save(new File(file.getFile_name(), id_user, file.getSize(), null)), HttpStatus.OK);
+    		return new ResponseEntity<File>(fileService.save(new File(file.getFile_name(), id_user, file.getSize())), HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

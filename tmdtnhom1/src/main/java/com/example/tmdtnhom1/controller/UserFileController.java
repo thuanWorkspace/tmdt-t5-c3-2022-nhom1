@@ -44,7 +44,7 @@ public class UserFileController {
     }
 	// tien
 	// api: /delete
-    @DeleteMapping("/file/{id}")
+    @DeleteMapping("/delete/{id}")
   public ResponseEntity<HttpStatus> deletefile(@PathVariable("id") String id) {
       try {
           userFileService.deleteById(id);
