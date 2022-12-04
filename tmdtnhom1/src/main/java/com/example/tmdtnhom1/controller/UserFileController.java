@@ -29,15 +29,30 @@ public class UserFileController {
 
 	// tien
 	// api: /upload
-	public void uploadfile() {
-	}
+	@PostMapping("/upload")
+    public ResponseEntity<User_file> uploadfile(@RequestBody User_file user_file) {
+        try {
+            User_file _file = userFileService.save(new User_file(user_file.getId_user(),user_file.getId_file()));
 
+            if(_file != null) {
+                return new ResponseEntity<User_file>(_file, HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 	// tien
 	// api: /delete
-	public void deletefile() {
-
-	}
-
+    @DeleteMapping("/delete/{id}")
+  public ResponseEntity<HttpStatus> deletefile(@PathVariable("id") String id) {
+      try {
+          userFileService.deleteById(id);
+          return new ResponseEntity<>(HttpStatus.OK);
+      } catch (Exception e) {
+          return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+  }
 	// tien
 	// api: /searchpublicfile
 	public void searchPublicFile() {
