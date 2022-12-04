@@ -22,4 +22,14 @@ public class FileService {
         return fileRepository.findById(id_file);
     }
 
+	public File save(File file) {
+		// TODO Auto-generated method stub
+		return fileRepository.save(file);
+	}
+
+	public void deleteById(String id) {
+		 fileRepository.deleteById(id);;
+		
+	}
+
 }

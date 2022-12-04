@@ -17,7 +17,6 @@ import com.example.tmdtnhom1.service.UserService;
  *
  */
 
-@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userapi")
 public class UserController {
@@ -70,10 +69,13 @@ public class UserController {
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			List<User> list = userService.getAllUsers();
+			System.out.println(list);
+			
 			if (list.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
