@@ -15,7 +15,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/filemanager" element={<App />} />
+        <Route path="/file/manager" element={<App />} />
         <Route path="/" element={<Navbar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
