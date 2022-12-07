@@ -1,20 +1,24 @@
 package com.example.tmdtnhom1.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User_file;
 import com.example.tmdtnhom1.service.FileService;
 import com.example.tmdtnhom1.service.UserFileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/fileapi")
@@ -100,20 +104,7 @@ public class FileController {
         }
     }
 
-//    @PostMapping("/file")
-//    public ResponseEntity<File> store(@RequestBody File file) {
-//        try {
-//            File _file = fileRepository.save(new File(file.getFile_name(),file.getOwner(),
-//                    file.getSize(),file.getUrl(),file.getRole(),file.getParentFile()));
-//
-//            if(_file != null) {
-//                return new ResponseEntity<File>(_file, HttpStatus.CREATED);
-//            }
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+
 //
 //    @PutMapping("/file/{id}")
 //    public ResponseEntity<File> update(@RequestBody File file, @PathVariable("id") String id) {
@@ -136,13 +127,26 @@ public class FileController {
 //        }
 //    }
 //
-//    @DeleteMapping("/file/{id}")
-//    public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
-//        try {
-//            fileRepository.deleteById(id);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+//    
+    
+    //Tien
+    //upload file
+    @PostMapping("/file/upload/{id_user}")
+    public ResponseEntity<File> upload(@RequestBody File file,@PathVariable("id_user") String id_user){
+    	try {
+    		return new ResponseEntity<File>(fileService.save(new File(file.getFile_name(), id_user, file.getSize())), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+    }
+    @DeleteMapping("/file/delete/{id_user}")
+    public ResponseEntity<HttpStatus> deletefile(@PathVariable("id") String id) {
+        try {
+            fileService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
