@@ -3,32 +3,66 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <div className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1">
-      <Link to="/home">
+      <Link
+        to="/home"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
         <img
-          className="logo-fshare w-32"
-          src="https://storage.fshare.vn/images/logo-2.png"
-          alt="Fshare"
+          className="logo-fshare w-12  bg-slate-100"
+          src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/08/Fotolia_128673803_Subscription_Monthly_M.jpg"
+          alt="Cloud"
         />
+        <h2 className="text-blue-600 font-medium">T_Cloud</h2>
       </Link>
 
       <span className="flex space-x-4">
-        <span>
-          <input
-            type="text"
-            placeholder="Tìm kiếm"
-            className="outline-none border-solid"
-          />
-          <i className="fa fa-search translate-x-[-2rem]"></i>
-        </span>
-        <i className="flex fa fa-bell translate-x-[-1rem] items-center "></i>
-        <img
-          className="rounded-full w-8"
-          src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/313413599_857123762314098_2590904766447935011_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=PFgIhXF5iZMAX9a56BK&_nc_oc=AQnTeKTuxDFbx-6a4p8niRyGiQ7vPryG1aUdyE6R7DsgyY92xmZrB28j6HbbZnwfi_dxPSRtNJUU_ulflRxxhZ9f&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfDTkmwW7OMM6eT-nXo0O-Qo2lHbW7vF46PNqtJdaf7LnA&oe=638644D0"
-          alt=""
+        <input
+          type="text"
+          placeholder="Tìm kiếm"
+          className="outline-none border-solid"
+          style={{ width: "800px" }}
         />
-        <h3>Nguyễn Triều Tiên</h3>
-        <i className="fa fa-chevron-down"></i>
+        <i className="fa fa-search translate-x-[-3rem] translate-y-[0.3rem] items-center "></i>
       </span>
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle border-none bg-blue-600 text-cyan-50"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Triều Tiên Nguyễn
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li>
+            <a class="dropdown-item active" href="#">
+              Trang chủ
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              Thông tin tài khoản
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              Quản lí file
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">
+              Đăng xuất
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
