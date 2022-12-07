@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1">
+    <div className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1 shadow-xl">
       <Link
         to="/home"
         style={{
