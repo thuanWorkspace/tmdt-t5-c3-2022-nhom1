@@ -8,6 +8,8 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Service from "./components/Service";
+import Payment from "./components/Service";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +21,8 @@ root.render(
         <Route path="/" element={<Navbar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/service" element={<Service />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </Router>
   </React.StrictMode>
