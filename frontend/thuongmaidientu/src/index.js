@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Service from "./components/Service";
-import Payment from "./components/Service";
+import Payment from "./components/Payment";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
