@@ -1,4 +1,5 @@
 import "./App.css";
+import Content from "./components/Content";
 import Footer from "./components/footer/Footer";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
@@ -6,10 +7,12 @@ import SideBar from "./components/SideBar";
 function App() {
   return (
     <div className="App">
-      <div className="grid grid-rows-3 grid-flow-col gap-4 ">
+      <Header />
+      <div className="flex mt-1">
         <SideBar />
-        <Header />
+        <Content />
       </div>
+
       <Footer />
     </div>
   );

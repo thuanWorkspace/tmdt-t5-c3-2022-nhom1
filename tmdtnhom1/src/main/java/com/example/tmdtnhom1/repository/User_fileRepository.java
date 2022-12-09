@@ -1,5 +1,6 @@
 package com.example.tmdtnhom1.repository;
 
+import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User_file;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -18,4 +19,5 @@ public interface User_fileRepository extends MongoRepository<User_file,String> {
 
     @Query("{'id_file': ?0}")
     List<User_file> getUseraccessFile(String id_file);
+
 }
