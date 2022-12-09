@@ -11,6 +11,10 @@ import java.util.Optional;
 public class ProductService {
     ProductRepository productRepository;
 
+    public Optional<Product> getById(String id_product) {
+        return productRepository.findById(id_product);
+    }
+
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();

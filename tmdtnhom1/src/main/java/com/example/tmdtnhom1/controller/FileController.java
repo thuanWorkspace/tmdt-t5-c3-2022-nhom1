@@ -31,6 +31,7 @@ public class FileController {
     @Autowired
     UserFileService userFileService;
 
+    //danh sach file so huu
     @GetMapping("/file/FileManager/{id_user}")
     public ResponseEntity<List<File>> getAll(@PathVariable("id_user") String id_user){
         try{
@@ -48,6 +49,7 @@ public class FileController {
         }
     }
 
+    //tim file bang idfile
     @GetMapping("/file/{id}")
     public ResponseEntity<File> getById(@PathVariable("id") String id_file){
         try{
@@ -63,6 +65,7 @@ public class FileController {
         }
     }
 
+    //danh sach file user duoc chia se
     @GetMapping("/file/Fileaccess/{user_id}")
     public ResponseEntity<List<File>> getUserSharedFile(@PathVariable("user_id") String user_id){
         try{
