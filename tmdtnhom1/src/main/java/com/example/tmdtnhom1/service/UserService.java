@@ -3,6 +3,7 @@ package com.example.tmdtnhom1.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.tmdtnhom1.model.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,11 @@ public class UserService {
 	
 	//user
 	//login by email only.
-	public void login(String email,String password) {
-		
+	public User checkLogin(Login login) {
+		User user = userRepository.findByEmail(login.getEmail());
+		return user;
 	}
+
 	public void register() {
 		
 	}

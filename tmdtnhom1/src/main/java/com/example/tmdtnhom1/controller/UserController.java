@@ -3,6 +3,8 @@ package com.example.tmdtnhom1.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.tmdtnhom1.model.File;
+import com.example.tmdtnhom1.model.Login;
 import com.example.tmdtnhom1.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,13 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.service.UserService;
+import org.springframework.web.servlet.ModelAndView;
+
 /**
  * members must identify parameters, output response in order to use.
  * @author MyPC
  *
  */
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+//@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userapi")
 public class UserController {
@@ -27,9 +31,20 @@ public class UserController {
 	// hieu
 	// login by email only.
 	//api:  /login
-	public void login(String email, String password) {
-
+	@PostMapping("/login")
+	public ResponseEntity<User> login(@RequestBody Login login){
+		try {
+			User user = userService.checkLogin(login);
+			if (user != null && (login.getPassword().equals(user.getPassword()))) {
+				System.out.println(user);
+				return new ResponseEntity<User>(user, HttpStatus.OK);
+			}
+			return new ResponseEntity("sai thong tin email hoac mat khau" ,HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
+
 	// hieu
 	// api: /register
 	public void register() {
@@ -83,7 +98,7 @@ public class UserController {
 	@GetMapping("/hello")
 	public ResponseEntity<String> hello() {
 		try {
-			return new ResponseEntity<String>("hello world", HttpStatus.OK);
+			return new ResponseEntity<String>("quan que 11111111111", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
