@@ -21,7 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 
-//@CrossOrigin(origins = {"http://localhost:3000"})
+
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userapi")
 public class UserController {
@@ -85,10 +86,13 @@ public class UserController {
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			List<User> list = userService.getAllUsers();
+			System.out.println(list);
+			
 			if (list.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -111,7 +115,7 @@ public class UserController {
 	public ResponseEntity<User> store(@RequestBody User user) {
 		try {
 			User _user = userService.save(new User(user.getUsername(),user.getEmail(),
-					user.getPassword(),user.getRole(),user.getScore(),user.getDob(),user.getGender()));
+					user.getPassword(),user.getRole(),user.getScore(),user.getDob(),user.getGender(),user.getData()));
 
 			if(_user != null) {
 				return new ResponseEntity<User>(_user, HttpStatus.CREATED);
@@ -154,7 +158,7 @@ public class UserController {
 
 			if (userData.isPresent()){
 				User user = userData.get();
-				user.updateScore(product);
+				user.updateScore(product.getScore());
 				return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
 			}
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -162,6 +166,25 @@ public class UserController {
 		} catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
 
+	//phu
+	//order product
+	@PutMapping("/user/payment/{user_id}/{score}")
+	public ResponseEntity<User> updateAfterPayment(@PathVariable("user_id") String user_id,
+												   @PathVariable Integer score){
+		try{
+			Optional<User> userData = userService.findById(user_id);
+
+			if (userData.isPresent()){
+				User user = userData.get();
+				user.setScore(user.getScore() + score);
+				return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.tmdtnhom1.service;
 
+import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User_file;
 import com.example.tmdtnhom1.repository.User_fileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,6 @@ public class UserFileService {
 	public List<User_file> getUserSharedFile(String user_id) {
 		return user_fileRepository.getUserSharedFile(user_id);
 	}
+
+	
 }
