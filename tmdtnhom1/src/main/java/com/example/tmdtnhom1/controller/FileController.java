@@ -108,6 +108,26 @@ public class FileController {
         }
     }
 
+    //phu
+    //tim kiem public file
+    @GetMapping("file/searchpublic/{name}")
+    public ResponseEntity<List<File>> getListFileSearchByName(@PathVariable("name") String name){
+        try{
+            List<File> list = new ArrayList<>();
+            fileService.getListFileSearchByName(name).forEach(list::add);
+
+            if (list.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(list,HttpStatus.OK);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 //
 //    @PutMapping("/file/{id}")
@@ -138,16 +158,26 @@ public class FileController {
     @PostMapping("/file/upload/{id_user}")
     public ResponseEntity<File> upload(@RequestBody File file,@PathVariable("id_user") String id_user){
     	try {
-    		return new ResponseEntity<File>(fileService.save(new File(file.getFile_name(), id_user, file.getSize())), HttpStatus.OK);
+            File _file = fileService.save(new File(file.getFile_name(), id_user, file.getSize()));
+            User_file user_file = userFileService.save(new User_file(id_user, _file.getId()));
+            if (_file != null && user_file != null){
+                return new ResponseEntity<File>(_file, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
-    @DeleteMapping("/file/delete/{id_user}")
-    public ResponseEntity<HttpStatus> deletefile(@PathVariable("id") String id) {
+    @DeleteMapping("/file/delete/{id_file}")
+    public ResponseEntity<HttpStatus> deletefile(@PathVariable("id_file") String id_file) {
         try {
-            fileService.deleteById(id);
+            List<User_file> user_fileList = userFileService.getUseraccessFile(id_file);
+            fileService.deleteById(id_file);
+            for(User_file uf : user_fileList){
+                userFileService.deleteById(uf.getId());
+            }
+
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -13,60 +13,32 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 	@Id
 	private String id;
-//	private int id_user;
 	private String username;
 	private String email;
 	private String password;
 	private int score;
 	private String role;
-//	private Date dob;
-//	private String dob;
 	private String gender;
 	private long data;
-	private List<UserProduct> servicepacks;
+	private List<UserProduct> servicepacks = new ArrayList<>();
 
-	public static final int score_factor = 10;// hệ số tỷ lệ giữa điểm và tiền
-
+	public static final int score_factor = 10;//hệ số tỷ lệ giữa điểm và tiền
 	public User() {
 	}
 
-//	public User(String username, String email, String password, int score, int role, Date dob, String gender,
-//			long data) {
-//		super();
-//		this.username = username;
-//		this.email = email;
-//		this.password = password;
-//		this.score = score;
-//		this.role = role;
-//		setDob(dob);
-//		this.gender = gender;
-//		this.data = data;
-//		this.servicepacks = new ArrayList<>();
-//	}
+	
 
-//	public User(String username, String email, String password, int score, int role, Date dob, String gender) {
-//		super();
-//		this.username = username;
-//		this.email = email;
-//		this.password = password;
-//		this.score = score;
-//		this.role = role;
-//		this.dob = dob;
-//		this.gender = gender;
-//	}
-//
-//	public User(String id, String username, String email, String password, int score, int role, Date dob,
-//				String gender) {
-//		super();
-//		this.id = id;
-//		this.username = username;
-//		this.email = email;
-//		this.password = password;
-//		this.score = score;
-//		this.role = role;
-//		this.dob = dob;
-//		this.gender = gender;
-//	}
+	public User(String username, String email, String password, int score, String role, String gender) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.score = score;
+		this.role = role;
+		this.gender = gender;
+	}
+
+
 
 	public String getId() {
 		return id;
@@ -118,37 +90,20 @@ public class User {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
-//	public int getRole() {
-//		return role;
-//	}
-//
-//	public void setRole(int role) {
-//		this.role = role;
-//	}
 
-//	public Date getDob() {
-//		return dob;
-//	}
-//
-//	public void setDob(Date dob) {
-//		this.dob = dob;
-//	}
-//	public Date getDob() {
-//		return DateUtils.StringtoDate(dob);
-//	}
-//
-//	public void setDob(Date dob) {
-//		this.dob = DateUtils.DatetoString(dob);
-//	}
+	
 
 	public String getRole() {
 		return role;
 	}
 
+
+
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+
 
 	public String getGender() {
 		return gender;
@@ -157,7 +112,6 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 	public long getData() {
 		return data;
 	}
@@ -174,13 +128,13 @@ public class User {
 		this.servicepacks = servicepacks;
 	}
 
-	public void updateScore(int score) {
+	public void updateScore(int score){
 		this.score += score;
 	}
 
-	public long getLimitData() {
+	public long getLimitData(){
 		long limitdata = 0;
-		for (UserProduct sp : servicepacks) {
+		for (UserProduct sp : servicepacks){
 			ProductService productService = new ProductService();
 			Product product = productService.getById(sp.getId_product()).get();
 			limitdata += product.getTransfer();
@@ -188,7 +142,7 @@ public class User {
 		return limitdata;
 	}
 
-	public int getValueScore() {
+	public int getValueScore(){
 		return this.score * score_factor;
 	}
 
