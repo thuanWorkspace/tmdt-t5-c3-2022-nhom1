@@ -29,6 +29,7 @@ public class UserFileController {
 
 	// tien
 	// api: /upload
+	// thiếu body File
 	@PostMapping("/upload")
     public ResponseEntity<User_file> uploadfile(@RequestBody User_file user_file) {
         try {

@@ -40,10 +40,4 @@
   },
   "id_user": "5",
   "id_file": "6371c1f10ac8ae8ad1af59da"
-},{
-  "_id": {
-    "$oid": "638041e7853fe47cbe059507"
-  },
-  "id_user": 1,
-  "id_file": 1
 }]

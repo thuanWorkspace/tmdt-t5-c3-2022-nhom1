@@ -40,43 +40,49 @@ public class UserController {
 
 	}
 	// hieu
-	//api: /facebookLogin
+	// api: /facebookLogin
 	public void facebookLogin() {
 
 	}
+
 	// hieu
-	//api: /logOut
+	// api: /logOut
 	public void logOut() {
 
 	}
+
 	// hieu
 	// forgot password
-	//api: /resetPassword
+	// api: /resetPassword
 	public void resetPassword() {
 
 	}
+
 	// hieu
-	//api: /changePassword
+	// api: /changePassword
 	public void changePassword() {
 
 	}
+
 	// hieu
-	//api: /user
+	// api: /user
 	public void getUser() {
-		
+
 	}
+
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			List<User> list = userService.getAllUsers();
 			System.out.println(list);
-			
+
 			if (list.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
-			
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -98,7 +104,7 @@ public class UserController {
 	public ResponseEntity<User> store(@RequestBody User user) {
 		try {
 			User _user = userService.save(new User(user.getUsername(),user.getEmail(),
-					user.getPassword(),user.getRole(),user.getScore(),user.getGender(),user.getData()));
+					user.getPassword(),user.getScore(),user.getRole(),user.getGender(),user.getData()));
 
 			if(_user != null) {
 				return new ResponseEntity<User>(_user, HttpStatus.CREATED);
@@ -130,43 +136,42 @@ public class UserController {
 		}
 	}
 
-
-	//phu
+	// phu
 	// tu dong tich diem
 	@PutMapping("/user/payment/{user_id}")
 	public ResponseEntity<User> updateAfterPayment(@PathVariable("user_id") String user_id,
-												   @RequestBody Product product){
-		try{
+			@RequestBody Product product) {
+		try {
 			Optional<User> userData = userService.findById(user_id);
 
-			if (userData.isPresent()){
+			if (userData.isPresent()) {
 				User user = userData.get();
 				user.updateScore(product.getScore());
 				return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
 			}
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	//phu
-	//order product
+	// phu
+	// order product
 	@PutMapping("/user/payment/{user_id}/{score}")
 	public ResponseEntity<User> updateAfterPayment(@PathVariable("user_id") String user_id,
-												   @PathVariable Integer score){
-		try{
+			@PathVariable Integer score) {
+		try {
 			Optional<User> userData = userService.findById(user_id);
 
-			if (userData.isPresent()){
+			if (userData.isPresent()) {
 				User user = userData.get();
 				user.setScore(user.getScore() + score);
 				return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
 			}
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
