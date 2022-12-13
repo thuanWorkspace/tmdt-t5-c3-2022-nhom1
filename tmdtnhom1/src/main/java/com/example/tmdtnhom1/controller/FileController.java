@@ -30,6 +30,12 @@ public class FileController {
 
     @Autowired
     UserFileService userFileService;
+    /**
+     * get all files in id user.
+     * @param id_user
+     * @return
+     * @author phu
+     */
 
     //danh sach file so huu
     @GetMapping("/file/FileManager/{id_user}")
@@ -48,7 +54,13 @@ public class FileController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    /**
+     * get specific file by id of file. not user relate.
+     * @purpose check
+     * @param id_user
+     * @return
+     * @author phu
+     */
     //tim file bang idfile
     @GetMapping("/file/{id}")
     public ResponseEntity<File> getById(@PathVariable("id") String id_file){
