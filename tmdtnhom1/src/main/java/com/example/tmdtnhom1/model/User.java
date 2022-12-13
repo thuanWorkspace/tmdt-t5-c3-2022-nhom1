@@ -19,29 +19,28 @@ public class User {
 	private String password;
 	private int score;
 	private int role;
-	private String dob;
+//	private String dob;
 	private String gender;
 	private long data;
-	private List<UserProduct> servicepacks;
+	private List<UserProduct> servicepacks = new ArrayList<>();
 
 	public static final int score_factor = 10;//hệ số tỷ lệ giữa điểm và tiền
 	public User() {
 	}
 
-	public User(String username, String email, String password, int score, int role, Date dob, String gender, long data) {
+	public User(String username, String email, String password, int score, int role, String gender, long data) {
 		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.score = score;
 		this.role = role;
-		setDob(dob);
+//		this.dob = DateUtils.DatetoString(dob);
 		this.gender = gender;
 		this.data = data;
-		this.servicepacks = new ArrayList<>();
 	}
 
-	public User(String id, String username, String email, String password, int score, int role, Date dob,
+	public User(String id, String username, String email, String password, int score, int role,
 				String gender, long data) {
 		super();
 		this.id = id;
@@ -50,10 +49,9 @@ public class User {
 		this.password = password;
 		this.score = score;
 		this.role = role;
-		this.dob = DateUtils.DatetoString(dob);
+//		this.dob = DateUtils.DatetoString(dob);
 		this.gender = gender;
 		this.data = data;
-		this.servicepacks = new ArrayList<>();
 	}
 
 	public String getId() {
@@ -100,13 +98,13 @@ public class User {
 		this.role = role;
 	}
 
-	public Date getDob() {
-		return DateUtils.StringtoDate(dob);
-	}
-
-	public void setDob(Date dob) {
-		this.dob = DateUtils.DatetoString(dob);
-	}
+//	public Date getDob() {
+//		return DateUtils.StringtoDate(dob);
+//	}
+//
+//	public void setDob(Date dob) {
+//		this.dob = DateUtils.DatetoString(dob);
+//	}
 
 	public String getGender() {
 		return gender;

@@ -40,9 +40,27 @@ public class UserProductService {
 				list.add(sp);
 			}
 		}
+		System.out.println("size :"+list.size());
+
+		//bo product mua truoc neu co 2 product cung loai con han su dung
+		List<UserProduct> unUsed_list = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i; j < list.size(); j++) {
+				if (i == j) continue;
+				if (list.get(i).getId_product().equalsIgnoreCase(list.get(j).getId_product())){
+					UserProduct unUsed_product = list.get(i).getPurchase_date().before(list.get(j).getPurchase_date())?
+							list.get(i) : list.get(j);
+					unUsed_list.add(unUsed_product);
+					System.out.println("remove userproduct "+unUsed_product.toString());
+				}
+			}
+		}
+		for (UserProduct up : unUsed_list){
+			list.remove(up);
+		}
+
 		return list;
 	}
-
 
 	//phu
 	//mua san pham

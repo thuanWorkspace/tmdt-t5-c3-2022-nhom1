@@ -56,4 +56,14 @@ public class UserProduct {
     public void setPurchase_date(Date purchase_date) {
         this.purchase_date = DateUtils.DatetoString(purchase_date);
     }
+
+    @Override
+    public String toString() {
+        return "UserProduct{" +
+                "id='" + id + '\'' +
+                ", id_user='" + id_user + '\'' +
+                ", id_product='" + id_product + '\'' +
+                ", purchase_date='" + purchase_date + '\'' +
+                '}';
+    }
 }
