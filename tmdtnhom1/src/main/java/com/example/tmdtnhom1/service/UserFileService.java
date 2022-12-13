@@ -48,5 +48,7 @@ public class UserFileService {
 		return user_fileRepository.getUserSharedFile(user_id);
 	}
 
-	
+	List<User_file> getPublicUserFile(){
+		return user_fileRepository.getUserSharedFile("0");
+	}
 }
