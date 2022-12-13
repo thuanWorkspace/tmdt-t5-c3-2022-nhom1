@@ -32,6 +32,7 @@ public class PaymentController {
     public String pay(HttpServletRequest request,@RequestParam("price") double price ){
         String cancelUrl = PaypalUtils.getBaseURL(request) + "/" + URL_PAYPAL_CANCEL;
         String successUrl = PaypalUtils.getBaseURL(request) + "/" + URL_PAYPAL_SUCCESS;
+       
         try {
             Payment payment = paypalService.createPayment(
                     price,
@@ -63,6 +64,7 @@ public class PaymentController {
                 return "success";
             }
         } catch (PayPalRESTException e) {
+        	e.printStackTrace();
             log.error(e.getMessage());
         }
         return "redirect:/";

@@ -45,6 +45,8 @@ public class FileService {
 //        name = "[^"+name+"]";
         List<User_file> listpublic = userFileService.getPublicUserFile();
         List<File> listFileByName = fileRepository.getFileSearchByName(name);
+        System.out.println("list file public");
+        System.out.println(listFileByName);
         List<File> result = new ArrayList<>();
         for(File f : listFileByName){
             for (User_file uf : listpublic){

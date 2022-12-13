@@ -115,7 +115,6 @@ public class FileController {
         try{
             List<File> list = new ArrayList<>();
             fileService.getListFileSearchByName(name).forEach(list::add);
-
             if (list.isEmpty()){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
