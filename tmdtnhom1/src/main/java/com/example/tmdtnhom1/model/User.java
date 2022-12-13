@@ -18,9 +18,9 @@ public class User {
 	private String email;
 	private String password;
 	private int score;
-	private int role;
+	private String role;
 //	private Date dob;
-	private String dob;
+//	private String dob;
 	private String gender;
 	private long data;
 	private List<UserProduct> servicepacks;
@@ -30,19 +30,19 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String email, String password, int score, int role, Date dob, String gender,
-			long data) {
-		super();
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.score = score;
-		this.role = role;
-		setDob(dob);
-		this.gender = gender;
-		this.data = data;
-		this.servicepacks = new ArrayList<>();
-	}
+//	public User(String username, String email, String password, int score, int role, Date dob, String gender,
+//			long data) {
+//		super();
+//		this.username = username;
+//		this.email = email;
+//		this.password = password;
+//		this.score = score;
+//		this.role = role;
+//		setDob(dob);
+//		this.gender = gender;
+//		this.data = data;
+//		this.servicepacks = new ArrayList<>();
+//	}
 
 //	public User(String username, String email, String password, int score, int role, Date dob, String gender) {
 //		super();
@@ -67,23 +67,24 @@ public class User {
 //		this.dob = dob;
 //		this.gender = gender;
 //	}
-	public User(String id, String username, String email, String password, int score, int role, Date dob, String gender,
-			long data) {
+
+	public String getId() {
+		return id;
+	}
+
+	
+
+	
+
+	public User(String username, String email, String password, int score, String role, String gender, long data) {
 		super();
-		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.score = score;
 		this.role = role;
-		this.dob = DateUtils.DatetoString(dob);
 		this.gender = gender;
 		this.data = data;
-		this.servicepacks = new ArrayList<>();
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getUsername() {
@@ -117,14 +118,14 @@ public class User {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
-	}
+	
+//	public int getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(int role) {
+//		this.role = role;
+//	}
 
 //	public Date getDob() {
 //		return dob;
@@ -133,12 +134,20 @@ public class User {
 //	public void setDob(Date dob) {
 //		this.dob = dob;
 //	}
-	public Date getDob() {
-		return DateUtils.StringtoDate(dob);
+//	public Date getDob() {
+//		return DateUtils.StringtoDate(dob);
+//	}
+//
+//	public void setDob(Date dob) {
+//		this.dob = DateUtils.DatetoString(dob);
+//	}
+
+	public String getRole() {
+		return role;
 	}
 
-	public void setDob(Date dob) {
-		this.dob = DateUtils.DatetoString(dob);
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getGender() {

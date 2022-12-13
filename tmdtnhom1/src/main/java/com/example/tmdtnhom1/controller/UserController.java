@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.service.UserService;
+
 /**
  * members must identify parameters, output response in order to use.
+ * 
  * @author MyPC
  *
  */
@@ -26,58 +28,67 @@ public class UserController {
 
 	// hieu
 	// login by email only.
-	//api:  /login
+	// api: /login
 	public void login(String email, String password) {
 
 	}
+
 	// hieu
 	// api: /register
 	public void register() {
 
 	}
+
 	// hieu
-	//api: /googleLogin
+	// api: /googleLogin
 	public void googleLogin() {
 
 	}
+
 	// hieu
-	//api: /facebookLogin
+	// api: /facebookLogin
 	public void facebookLogin() {
 
 	}
+
 	// hieu
-	//api: /logOut
+	// api: /logOut
 	public void logOut() {
 
 	}
+
 	// hieu
 	// forgot password
-	//api: /resetPassword
+	// api: /resetPassword
 	public void resetPassword() {
 
 	}
+
 	// hieu
-	//api: /changePassword
+	// api: /changePassword
 	public void changePassword() {
 
 	}
+
 	// hieu
-	//api: /user
+	// api: /user
 	public void getUser() {
-		
+
 	}
+
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			List<User> list = userService.getAllUsers();
 			System.out.println(list);
-			
+
 			if (list.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
-			
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -93,16 +104,16 @@ public class UserController {
 		}
 	}
 
-	//phu
-	//cap nhat thong tin nguoi dung
+	// phu
+	// cap nhat thong tin nguoi dung
 	@PostMapping("/user")
 	public ResponseEntity<User> store(@RequestBody User user) {
 		try {
-			User _user = userService.save(new User(user.getUsername(),user.getEmail(),
-//					user.getPassword(),user.getRole(),user.getScore(),user.getGender()));
-					user.getPassword(),user.getRole(),user.getScore(),user.getDob(),user.getGender(),user.getData()));
+			User _user = userService.save(new User(user.getUsername(), user.getEmail(), user.getPassword(),
+					user.getScore(),user.getRole() , user.getGender(), user.getData()));
+//					user.getPassword(),user.getRole(),user.getScore(),user.getDob(),user.getGender(),user.getData()));
 
-			if(_user != null) {
+			if (_user != null) {
 				return new ResponseEntity<User>(_user, HttpStatus.CREATED);
 			}
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -116,7 +127,7 @@ public class UserController {
 		try {
 			Optional<User> userData = userService.findById(id);
 
-			if(userData.isPresent()) {
+			if (userData.isPresent()) {
 				User _user = userData.get();
 				System.out.println(_user.toString());
 //                _user.setEmail(user.getEmail());
@@ -132,43 +143,42 @@ public class UserController {
 		}
 	}
 
-
-	//phu
+	// phu
 	// tu dong tich diem
 	@PutMapping("/user/payment/{user_id}")
 	public ResponseEntity<User> updateAfterPayment(@PathVariable("user_id") String user_id,
-												   @RequestBody Product product){
-		try{
+			@RequestBody Product product) {
+		try {
 			Optional<User> userData = userService.findById(user_id);
 
-			if (userData.isPresent()){
+			if (userData.isPresent()) {
 				User user = userData.get();
 				user.updateScore(product.getScore());
 				return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
 			}
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	//phu
-	//order product
+	// phu
+	// order product
 	@PutMapping("/user/payment/{user_id}/{score}")
 	public ResponseEntity<User> updateAfterPayment(@PathVariable("user_id") String user_id,
-												   @PathVariable Integer score){
-		try{
+			@PathVariable Integer score) {
+		try {
 			Optional<User> userData = userService.findById(user_id);
 
-			if (userData.isPresent()){
+			if (userData.isPresent()) {
 				User user = userData.get();
 				user.setScore(user.getScore() + score);
 				return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
 			}
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-		} catch (Exception e){
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
