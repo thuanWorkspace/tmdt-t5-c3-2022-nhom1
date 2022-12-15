@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.tmdtnhom1.model.User;
+import com.example.tmdtnhom1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User_file;
@@ -30,6 +26,8 @@ public class FileController {
 
     @Autowired
     UserFileService userFileService;
+    @Autowired
+    UserService userService;
     /**
      * get all files in id user.
      * @param id_user
@@ -57,7 +55,7 @@ public class FileController {
     /**
      * get specific file by id of file. not user relate.
      * @purpose check
-     * @param id_user
+     * @paramid_user
      * @return
      * @author phu
      */
@@ -183,4 +181,25 @@ public class FileController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //phu
+    @PutMapping("/file/dowload/{id_user}/{id_file}")
+    public ResponseEntity<File> downloadFile(@PathVariable String id_user,@PathVariable String id_file){
+        try{
+            File _file = fileService.findById(id_file).get();
+            User _user = userService.findById(id_user).get();
+            if (_file == null || _user == null){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<File>(fileService.downloadFile(_user,_file),HttpStatus.OK);
+        } catch (IndexOutOfBoundsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

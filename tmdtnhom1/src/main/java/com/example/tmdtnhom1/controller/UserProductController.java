@@ -1,7 +1,11 @@
 package com.example.tmdtnhom1.controller;
 
 import com.example.tmdtnhom1.Utils.DateUtils;
+import com.example.tmdtnhom1.model.Product;
+import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.model.UserProduct;
+import com.example.tmdtnhom1.service.ProductService;
+import com.example.tmdtnhom1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,18 +69,24 @@ public class UserProductController {
 
 	// phu
 	// api: /orderProduct
-	// nguoi dung chon mua bang tien hoac diem thuong
-	@PostMapping("/orderProduct") // requestbody chi gui len userid va productid
-	public ResponseEntity<UserProduct> orderProduct(@RequestBody UserProduct userProduct) {
+	// nguoi dung khi mua san pham co the nhap vao so diem de giam gia tien
+	@PostMapping("/orderProduct/{score}") // requestbody chi gui len userid va productid
+	public ResponseEntity<UserProduct> orderProduct(@RequestBody UserProduct userProduct,@PathVariable int score) {
 		try {
+			UserProduct productActived = userProductService.checkAvailableProduct(userProduct.getId_user(), userProduct.getId_product());
+			if (productActived != null){
+				userProductService.updateAvalableUserProduct(productActived);
+			}
+
 			UserProduct user_Product = userProductService.orderProduct(
-					new UserProduct(userProduct.getId_user(), userProduct.getId_product(), DateUtils.currentDate()));
+					new UserProduct(userProduct.getId_user(), userProduct.getId_product(),true, DateUtils.currentDate()),score);
 			if (user_Product != null) {
 				return new ResponseEntity<UserProduct>(user_Product, HttpStatus.OK);
 			}
 
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -88,7 +98,7 @@ public class UserProductController {
 	@PostMapping("/orderScoreProduct") // requestbody chi gui len userid va productid
 	public ResponseEntity<UserProduct> orderScoreProduct(@RequestBody UserProduct userProduct) {
 		try {
-			UserProduct user_Product = new UserProduct(userProduct.getId_user(), userProduct.getId_product(),
+			UserProduct user_Product = new UserProduct(userProduct.getId_user(), userProduct.getId_product(),true,
 					DateUtils.currentDate());
 			System.out.println(user_Product.getId_user() + "- id -" + user_Product.getId_product());
 			if (userProductService.checkOrderProductbyScore(user_Product)) {
