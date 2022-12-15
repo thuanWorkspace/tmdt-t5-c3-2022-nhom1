@@ -18,8 +18,8 @@ export default function Footer() {
   return (
     <div className="  bg-gray-600 mt-96 h-56">
       <span className=" flex justify-around w-2/3 mx-auto text-white">
-        {listItem.map((item) => (
-          <FooterItem name={item.name} listItem={item.listItem} />
+        {listItem.map((item, index) => (
+          <FooterItem key={index} name={item.name} listItem={item.listItem} />
         ))}
       </span>
     </div>

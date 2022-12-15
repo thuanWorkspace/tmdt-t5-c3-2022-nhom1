@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import Footer from "./footer/Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 export default function Service() {
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => res.json())
+      .then((posts) => {
+        console.log(posts);
+      });
+  }, []);
+
   return (
     <>
       <Header />

@@ -5,8 +5,10 @@ export default function FooterItem({ name, listItem }) {
     <ul className="">
       <h3 className="">{name}</h3>
 
-      {listItem.map((item) => (
-        <li className="">{item}</li>
+      {listItem.map((item, index) => (
+        <li className="" key={index}>
+          {item}
+        </li>
       ))}
     </ul>
   );

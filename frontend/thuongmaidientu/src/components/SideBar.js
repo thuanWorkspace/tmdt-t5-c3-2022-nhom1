@@ -8,8 +8,8 @@ function SideBar() {
           <li>Quản lí tập tin</li>
         </div>
         <div className="flex items-center text-center p-2 ">
-          <i className="fa fa-heart mr-4"></i>
-          <li>Yêu Thích</li>
+          <i className="fa fa-share mr-4"></i>
+          <li>Tập Tin Chia Sẻ Đến Tôi</li>
         </div>
       </ul>
     </div>
