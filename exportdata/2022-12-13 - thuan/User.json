@@ -1,0 +1,108 @@
+[{
+  "_id": {
+    "$oid": "637f925c92c54d6cc0ff5075"
+  },
+  "username": "thuan",
+  "email": "19130222@st.hcmuaf.edu.vn",
+  "password": "1234",
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "score": 0,
+  "gender": "male",
+  "data": 10
+},{
+  "_id": {
+    "$oid": "6389fa4505487e0836544570"
+  },
+  "username": "thuan2",
+  "email": "2@st.hcmuaf.edu.vn",
+  "password": "1111",
+  "score": 1,
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "gender": "male",
+  "_class": "com.example.tmdtnhom1.model.User",
+  "data": 20
+},{
+  "_id": {
+    "$oid": "6371bd880ac8ae8ad1af59ce"
+  },
+  "username": "thuận",
+  "email": "thuanpham@gmail.com",
+  "password": "thuan123",
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "score": 390,
+  "gender": "male",
+  "data": 30
+},{
+  "_id": {
+    "$oid": "6371bf590ac8ae8ad1af59d1"
+  },
+  "username": "phú",
+  "email": "phu123@gmail.com",
+  "password": "phu321",
+  "role": {
+    "$oid": "637f93e292c54d6cc0ff507e"
+  },
+  "score": 450,
+  "gender": "male",
+  "data": 40
+},{
+  "_id": {
+    "$oid": "6372108b0ac8ae8ad1af59f0"
+  },
+  "username": "cu",
+  "email": "phuan@gmail.com",
+  "password": "anan",
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "score": 300,
+  "_class": "com.tmdt.cuoikitmdt1.model.User",
+  "gender": "male",
+  "data": 50
+},{
+  "_id": {
+    "$oid": "638328101a6e8152fc286da4"
+  },
+  "username": "thuanas",
+  "email": "19130222aa@st.hcmuaf.edu.vn",
+  "password": "1234",
+  "score": 1,
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "_class": "com.example.tmdtnhom1.model.User",
+  "gender": "male",
+  "data": 60
+},{
+  "_id": {
+    "$oid": "638329748ac41c2838e5a0e4"
+  },
+  "username": "thuanas",
+  "email": "19130222aa@st.hcmuaf.edu.vn",
+  "password": "1234",
+  "score": 61,
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "gender": "male",
+  "_class": "com.example.tmdtnhom1.model.User",
+  "data": 70
+},{
+  "_id": {
+    "$oid": "6389f9a5a9d2f938968bb7c8"
+  },
+  "username": "thuận",
+  "email": "thuanpham@gmail.com",
+  "password": "thuan123",
+  "score": 390,
+  "role": {
+    "$oid": "637f93a592c54d6cc0ff507b"
+  },
+  "_class": "com.example.tmdtnhom1.model.User"
+}]

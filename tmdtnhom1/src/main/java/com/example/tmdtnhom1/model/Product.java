@@ -11,8 +11,8 @@ public class Product {
     @Id
     private String id;
     private String product_name;
-    private long storage;// = byte
-    private long transfer;//= byte
+    private double storage;// = byte
+    private double transfer;//= byte
     private int period ;//= hour
 
     private double price;
@@ -20,7 +20,7 @@ public class Product {
 
 
 
-    public Product(String product_name, long storage, long transfer, int period, double price, int score) {
+    public Product(String product_name, double storage, double transfer, int period, double price, int score) {
         this.product_name = product_name;
         this.storage = storage;
         this.transfer = transfer;
@@ -61,19 +61,19 @@ public class Product {
         return id;
     }
 
-    public long getStorage() {
+    public double getStorage() {
         return storage;
     }
 
-    public void setStorage(long storage) {
+    public void setStorage(double storage) {
         this.storage = storage;
     }
 
-    public long getTransfer() {
+    public double getTransfer() {
         return transfer;
     }
 
-    public void setTransfer(long transfer) {
+    public void setTransfer(double transfer) {
         this.transfer = transfer;
     }
 
