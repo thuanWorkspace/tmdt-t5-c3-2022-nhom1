@@ -3,6 +3,8 @@ package com.example.tmdtnhom1.controller;
 import com.example.tmdtnhom1.model.Product;
 import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.service.ProductService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.Optional;
  * @author MyPC
  *
  */
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/productapi")
 public class ProductController {
@@ -36,6 +39,7 @@ public class ProductController {
 			}
 			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
