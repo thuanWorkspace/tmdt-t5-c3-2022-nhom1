@@ -13,15 +13,17 @@ public class UserProduct {
     private String id_user;
     private String id_product;
     private String purchase_date;
+    private boolean available;
 
     public UserProduct() {
         super();
     }
 
-    public UserProduct(String id_user, String id_product, Date purchase_date) {
+    public UserProduct(String id_user, String id_product,boolean available, Date purchase_date) {
         super();
         this.id_user = id_user;
         this.id_product = id_product;
+        this.available = available;
         setPurchase_date(purchase_date);
     }
 
@@ -47,6 +49,14 @@ public class UserProduct {
 
     public void setId_product(String id_product) {
         this.id_product = id_product;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public Date getPurchase_date() {

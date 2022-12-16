@@ -65,8 +65,8 @@ public class UserProductService {
 
 	//phu
 	//mua san pham
-	public UserProduct orderProduct(UserProduct userProduct) {
-		autoIncreseScoreWhenBuyProduct(userProduct);
+	public UserProduct orderProduct(UserProduct userProduct, int score) throws Exception {
+		autoIncreseScoreWhenBuyProduct(userProduct,score);
 		paymentOnline();
 		return userProductRepository.save(userProduct);
 	}
@@ -93,10 +93,13 @@ public class UserProductService {
 
 	}
 
-	public void autoIncreseScoreWhenBuyProduct(UserProduct userProduct) {
+	public void autoIncreseScoreWhenBuyProduct(UserProduct userProduct,int score) throws Exception {
 		User user = userRepository.findById(userProduct.getId_user()).get();
 		Product product = productRepository.findById(userProduct.getId_product()).get();
-		user.updateScore(product.getScore());
+		user.updateScore(product.getScore() - score);
+		if (user.getScore() < 0){
+			throw new Exception("User Not Enough score ");
+		}
 		userRepository.save(user);
 	}
 
@@ -121,5 +124,23 @@ public class UserProductService {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public UserProduct checkAvailableProduct(String id_user,String id_product) {
+		for (UserProduct up : getAvailableProduct(id_user)){
+			if (up.getId_product().equals(id_product)) return up;
+		}
+		return null;
+	}
+
+	public boolean updateAvalableUserProduct(UserProduct userProduct){
+		userProduct.setAvailable(false);
+		save(userProduct);
+
+		User user = userRepository.findById(userProduct.getId_user()).get();
+		Product product = productRepository.findById(userProduct.getId_product()).get();
+		user.updateData(- product.getTransfer());
+		userRepository.save(user);
+		return true;
 	}
 }
