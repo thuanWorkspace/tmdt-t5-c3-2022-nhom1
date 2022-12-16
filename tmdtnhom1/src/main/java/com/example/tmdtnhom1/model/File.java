@@ -9,10 +9,10 @@ public class File {
     private String id;
     private String file_name;
     private String owner;
-    private long size;
+    private double size;
 
 
-    public File(String name, String owner, long size) {
+    public File(String name, String owner, double size) {
         super();
         this.file_name = name;
         this.owner = owner;
@@ -47,11 +47,11 @@ public class File {
         this.file_name = file_name;
     }
 
-    public long getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(double size) {
         this.size = size;
     }
 

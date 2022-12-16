@@ -1,13 +1,11 @@
 package com.example.tmdtnhom1.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.example.tmdtnhom1.Utils.DateUtils;
 import com.example.tmdtnhom1.service.ProductService;
+import com.example.tmdtnhom1.service.UserProductService;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "User")
 public class User {
@@ -19,8 +17,7 @@ public class User {
 	private int score;
 	private String role;
 	private String gender;
-	private long data;
-	private List<UserProduct> servicepacks = new ArrayList<>();
+	private double data;
 
 	public static final int score_factor = 10;//hệ số tỷ lệ giữa điểm và tiền
 	public User() {
@@ -48,7 +45,7 @@ public class User {
 
 	
 
-	public User(String username, String email, String password, int score, String role, String gender, long data) {
+	public User(String username, String email, String password, int score, String role, String gender, double data) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -112,35 +109,19 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public long getData() {
+	public double getData() {
 		return data;
 	}
 
-	public void setData(long data) {
+	public void setData(double data) {
 		this.data = data;
 	}
 
-	public List<UserProduct> getServicepacks() {
-		return servicepacks;
-	}
-
-	public void setServicepacks(List<UserProduct> servicepacks) {
-		this.servicepacks = servicepacks;
-	}
 
 	public void updateScore(int score){
 		this.score += score;
 	}
-
-	public long getLimitData(){
-		long limitdata = 0;
-		for (UserProduct sp : servicepacks){
-			ProductService productService = new ProductService();
-			Product product = productService.getById(sp.getId_product()).get();
-			limitdata += product.getTransfer();
-		}
-		return limitdata;
-	}
+	public void updateData(double data){this.data += data;}
 
 	public int getValueScore(){
 		return this.score * score_factor;
@@ -155,5 +136,6 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", score="
 				+ score + ", role=" + role + ", gender=" + gender + "]";
 	}
+
 
 }
