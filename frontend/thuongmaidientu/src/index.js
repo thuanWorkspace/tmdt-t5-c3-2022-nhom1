@@ -10,21 +10,24 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Service from "./components/Service";
 import Payment from "./components/Payment";
+import { AppContext, Provider } from "./Context/AppContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/file/manager" element={<App />} />
-        <Route path="/" element={<Navbar />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/payment" element={<Payment />} />
-      </Routes>
-    </Router>
+    <Provider>
+      <Router>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/file/manager" element={<App />} />
+          <Route path="/" element={<Navbar />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/payment" element={<Payment />} />
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 
