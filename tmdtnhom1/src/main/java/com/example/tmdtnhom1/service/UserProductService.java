@@ -143,4 +143,23 @@ public class UserProductService {
 		userRepository.save(user);
 		return true;
 	}
+
+	/* $check$
+	viết phương thức kiểm tra điểm của user và giá user truyền vào có hợp lệ ( được viết trong service)
+	->kt điểm có vượt quá điểm người dùng đang có hoặc quá số tiền product phải trả
+	 */
+	public boolean checkScoreInputProduct(String id_user,String id_product,int score) throws Exception {
+		Product product = productRepository.findById(id_product).get();
+		User user = userRepository.findById(id_user).get();
+
+		if (user.getScore() < score){
+//			throw new Exception("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
+			return false;
+		}
+		if (product.getScore() < score){
+//			throw new Exception("Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
+			return false;
+		}
+		return true;
+	}
 }
