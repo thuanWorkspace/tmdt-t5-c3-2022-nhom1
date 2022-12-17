@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.service.UserFileService;
-import com.example.tmdtnhom1.service.UserProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +157,28 @@ public class UserFileController {
 		}
 	}
 
+	/* $check$
+	viết api lấy ra trạng thái hiện tại của file của user ( trạng thái private, public, hay share)
+	-> chỉ 2 trạng thái public private, việc shared độc lập, lấy api "/access/{file_id}" get danh sách nguoi dung được chia sẻ
+	Khi 1 file được tạo thì cũng tạo 1 userFile kèm theo mang iduser = idowner hoặc 0
+	trước khi thực hiện api nhớ kt lại file đã có userFile hay chưa
+	 */
+	@GetMapping("/access/status/{owner_id}/{file_id}")
+	public ResponseEntity<String> getStatusAccessOfFile(@PathVariable String file_id,@PathVariable String owner_id){
+		try {
+
+			User_file userFileData = userFileService.getAccessByIdFile(owner_id,file_id);
+			String status = "public";
+
+			if (userFileData.getId_user().equals(owner_id)){
+				status = "private";
+			}
+
+			return new ResponseEntity<>(status, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@PutMapping("/user_file/id")
 	public ResponseEntity<String> update(@RequestBody User_file userFile){
@@ -189,7 +210,9 @@ public class UserFileController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	public void shareFileTo(String idFile, String id_owner, String id_share) {
+		
+	}
 	//danh sach cac file user duoc chia se
 	@PutMapping("/useraccess/{user_id}/{hasaccess}")
 	public ResponseEntity<User_file> ChangeUserAccessFile(@RequestBody User_file userFile

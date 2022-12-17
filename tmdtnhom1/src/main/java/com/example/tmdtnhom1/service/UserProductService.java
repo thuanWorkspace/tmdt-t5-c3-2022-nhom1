@@ -23,57 +23,59 @@ public class UserProductService {
 	@Autowired
 	UserRepository userRepository;
 
-	//phu
-	//danh sach lich su mua san pham
+	// phu
+	// danh sach lich su mua san pham
 	public List<UserProduct> getUserProductByUser(String id_user) {
 		return userProductRepository.getUserProductByUser(id_user);
 	}
 
-	//danh sach san pham mua con han
+	// danh sach san pham mua con han
 	public List<UserProduct> getAvailableProduct(String id_user) {
 		List<UserProduct> list = new ArrayList<>();
 		List<UserProduct> listproduct = userProductRepository.getUserProductByUser(id_user);
 		Product product;
-		for(UserProduct sp : listproduct){
+		for (UserProduct sp : listproduct) {
 			product = productRepository.findById(sp.getId_product()).get();
-			if (DateUtils.addDate(sp.getPurchase_date(),product.getPeriod()).after(DateUtils.currentDate())){
+			if (DateUtils.addDate(sp.getPurchase_date(), product.getPeriod()).after(DateUtils.currentDate())) {
 				list.add(sp);
 			}
 		}
-		System.out.println("size :"+list.size());
+		System.out.println("size :" + list.size());
 
-		//bo product mua truoc neu co 2 product cung loai con han su dung
+		// bo product mua truoc neu co 2 product cung loai con han su dung
 		List<UserProduct> unUsed_list = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = i; j < list.size(); j++) {
-				if (i == j) continue;
-				if (list.get(i).getId_product().equalsIgnoreCase(list.get(j).getId_product())){
-					UserProduct unUsed_product = list.get(i).getPurchase_date().before(list.get(j).getPurchase_date())?
-							list.get(i) : list.get(j);
+				if (i == j)
+					continue;
+				if (list.get(i).getId_product().equalsIgnoreCase(list.get(j).getId_product())) {
+					UserProduct unUsed_product = list.get(i).getPurchase_date().before(list.get(j).getPurchase_date())
+							? list.get(i)
+							: list.get(j);
 					unUsed_list.add(unUsed_product);
-					System.out.println("remove userproduct "+unUsed_product.toString());
+					System.out.println("remove userproduct " + unUsed_product.toString());
 				}
 			}
 		}
-		for (UserProduct up : unUsed_list){
+		for (UserProduct up : unUsed_list) {
 			list.remove(up);
 		}
 
 		return list;
 	}
-	
 
-	//phu
-	//mua san pham
+	// phu
+	// mua san pham
 	public UserProduct orderProduct(UserProduct userProduct, int score) throws Exception {
-		autoIncreseScoreWhenBuyProduct(userProduct,score);
+		autoIncreseScoreWhenBuyProduct(userProduct, score);
 		paymentOnline();
 		return userProductRepository.save(userProduct);
 	}
 
 	public UserProduct orderProductbyScore(UserProduct userProduct) {
 		/**
-		 * if ( user uses convert Score to promotion ) { reduce score instead money when order }
+		 * if ( user uses convert Score to promotion ) { reduce score instead money when
+		 * order }
 		 */
 		autoDecreseScoreWhenBuyProduct(userProduct);
 		paymentOnline();
@@ -83,26 +85,24 @@ public class UserProductService {
 	private void autoDecreseScoreWhenBuyProduct(UserProduct userProduct) {
 		User user = userRepository.findById(userProduct.getId_user()).get();
 		Product product = productRepository.findById(userProduct.getId_product()).get();
-		user.updateScore((int) - (product.getPrice() / User.score_factor));
+		user.updateScore((int) -(product.getPrice() / User.score_factor));
 		System.out.println(user.getScore());
 		userRepository.save(user);
 	}
-
 
 	public void paymentOnline() {
 
 	}
 
-	public void autoIncreseScoreWhenBuyProduct(UserProduct userProduct,int score) throws Exception {
+	public void autoIncreseScoreWhenBuyProduct(UserProduct userProduct, int score) throws Exception {
 		User user = userRepository.findById(userProduct.getId_user()).get();
 		Product product = productRepository.findById(userProduct.getId_product()).get();
 		user.updateScore(product.getScore() - score);
-		if (user.getScore() < 0){
+		if (user.getScore() < 0) {
 			throw new Exception("User Not Enough score ");
 		}
 		userRepository.save(user);
 	}
-
 
 	public UserProduct save(UserProduct userProduct) {
 		return userProductRepository.save(userProduct);
@@ -115,32 +115,53 @@ public class UserProductService {
 			User user = userRepository.findById(user_product.getId_user()).get();
 			boolean result = user.getValueScore() < product.getPrice();
 			System.out.println(result);
-			if (result){
+			if (result) {
 				System.out.println(user.getValueScore() + " <false " + product.getPrice());
 				return false;
 			}
 			return true;
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public UserProduct checkAvailableProduct(String id_user,String id_product) {
-		for (UserProduct up : getAvailableProduct(id_user)){
-			if (up.getId_product().equals(id_product)) return up;
+	public UserProduct checkAvailableProduct(String id_user, String id_product) {
+		for (UserProduct up : getAvailableProduct(id_user)) {
+			if (up.getId_product().equals(id_product))
+				return up;
 		}
 		return null;
 	}
 
-	public boolean updateAvalableUserProduct(UserProduct userProduct){
+	public boolean updateAvalableUserProduct(UserProduct userProduct) {
 		userProduct.setAvailable(false);
 		save(userProduct);
 
 		User user = userRepository.findById(userProduct.getId_user()).get();
 		Product product = productRepository.findById(userProduct.getId_product()).get();
-		user.updateData(- product.getTransfer());
+		user.updateData(-product.getTransfer());
 		userRepository.save(user);
+		return true;
+	}
+
+	/*
+	 * viết phương thức kiểm tra điểm của user và giá user truyền vào có hợp
+	 * lệ ( được viết trong service) ->kt điểm có vượt quá điểm người dùng đang có
+	 * hoặc quá số tiền product phải trả
+	 */
+	public boolean checkScoreInputProduct(String id_user, String id_product, int score) throws Exception {
+		Product product = productRepository.findById(id_product).get();
+		User user = userRepository.findById(id_user).get();
+
+		if (user.getScore() < score) {
+//			throw new Exception("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
+			return false;
+		}
+		if (product.getScore() < score) {
+//			throw new Exception("Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
+			return false;
+		}
 		return true;
 	}
 }
