@@ -1,6 +1,5 @@
 package com.example.tmdtnhom1.service;
 
-import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User_file;
 import com.example.tmdtnhom1.repository.User_fileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class UserFileService {
 	}
 
 	public List<User_file> getUseraccessFile(String file_id) {
-		return user_fileRepository.getUseraccessFile(file_id);
+		return user_fileRepository.findByIdFile(file_id);
 	}
 
 	public Optional<User_file> findById(String id) {
@@ -50,5 +49,15 @@ public class UserFileService {
 
 	List<User_file> getPublicUserFile(){
 		return user_fileRepository.getUserSharedFile("0");
+	}
+
+	public User_file getAccessByIdFile(String user_id, String file_id) {
+		List<User_file> list = user_fileRepository.findByIdFile(file_id);
+		for (User_file uf : list){
+			if (uf.getId_user().equals(user_id) || uf.getId_user().equals("0")){
+				return uf;
+			}
+		}
+		return null;
 	}
 }

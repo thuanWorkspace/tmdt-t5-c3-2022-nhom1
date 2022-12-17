@@ -114,4 +114,12 @@ public class UserService {
 
 		return size;
 	}
+
+	public User findByEmail(String email) {
+		List<User> list = userRepository.findByEmail(email);
+		if (list.size() == 1){
+			return list.get(0);
+		}
+		return null;
+	}
 }
