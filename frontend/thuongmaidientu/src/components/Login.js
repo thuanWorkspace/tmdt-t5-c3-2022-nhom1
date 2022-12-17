@@ -43,7 +43,10 @@ function Login() {
           </span>
           <Link className="text-blue-500">Quên mật khẩu?</Link>
         </span>
-        <Link className=" p-2 mx-11 mt-4 bg-red-600 text-white flex justify-center rounded-md">
+        <Link
+          to="/home"
+          className=" p-2 mx-11 mt-4 bg-red-600 text-white flex justify-center rounded-md"
+        >
           ĐĂNG NHẬP
         </Link>
         <span className="flex items-center justify-center mt-3 pb-8">

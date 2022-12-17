@@ -28,36 +28,36 @@ function Header() {
         />
         <i className="fa fa-search translate-x-[-3rem] translate-y-[0.3rem] items-center "></i>
       </span>
-      <div class="dropdown">
+      <div className="dropdown">
         <button
-          class="btn dropdown-toggle border-none bg-blue-600 text-cyan-50"
+          className="btn dropdown-toggle border-none bg-blue-600 text-cyan-50"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           Triều Tiên Nguyễn
         </button>
-        <ul class="dropdown-menu dropdown-menu-dark">
+        <ul className="dropdown-menu dropdown-menu-dark">
           <li>
-            <a class="dropdown-item active" href="#">
+            <a className="dropdown-item active" href="#">
               Trang chủ
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <a className="dropdown-item" href="#">
               Thông tin tài khoản
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <a className="dropdown-item" href="#">
               Quản lí file
             </a>
           </li>
           <li>
-            <hr class="dropdown-divider" />
+            <hr className="dropdown-divider" />
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <a className="dropdown-item" href="#">
               Đăng xuất
             </a>
           </li>
