@@ -86,7 +86,12 @@ public class UserProductController {
 			}
 
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (Exception e) {
+		} catch (IndexOutOfBoundsException e){
+			return new ResponseEntity<>(HttpStatus.CONFLICT);//"Bạn không đủ điểm thưởng để thực hiện hành động này!!"
+		} catch (NumberFormatException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);//Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

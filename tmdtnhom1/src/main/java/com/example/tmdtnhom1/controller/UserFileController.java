@@ -75,12 +75,6 @@ public class UserFileController {
 		userFileService.downloadPublicFile();
 	}
 
-	// tien
-	// api: /sharefile
-	// owner shares file to user
-	public void FileShareToUser(User owner, File file, User user) {
-
-	}
 
 	// tien
 	// api: /createfolder
@@ -91,15 +85,16 @@ public class UserFileController {
 	//phu
 	//quyen truy cap file
 
-	//set public 1 file
-	@PostMapping("/access/true")
-	public ResponseEntity<User_file> store(@RequestBody User_file user_file) {
+	// owner chia se file cho user $check$
+	//  neu owner da chia se roi thi khong co gi xay ra
+	@PostMapping("access/sharefile/{id_file}/{id_user}")
+	public ResponseEntity<User_file> store(@PathVariable String id_file,@PathVariable String id_user) {
 		try {
 
-			List<User_file> list = userFileService.GetId(user_file.getId_user(), user_file.getId_file());
+			List<User_file> list = userFileService.GetId(id_user, id_file);
 			switch (list.size()){
 				case 0:
-					User_file userFile = userFileService.save(new User_file(user_file.getId_user(),user_file.getId_file()));
+					User_file userFile = userFileService.save(new User_file(id_user, id_file));
 
 					if(userFile != null) {
 						return new ResponseEntity<User_file>(userFile, HttpStatus.CREATED);
@@ -118,11 +113,12 @@ public class UserFileController {
 		}
 	}
 
-	//set private 1 file
-	@DeleteMapping("/access/false")
-	public ResponseEntity<HttpStatus> delete(@RequestBody User_file userFile) {
+	//owner huy chia se cho user $check$
+	// neu owner chua chia se thi khong co gi xay ra
+	@DeleteMapping("access/sharefile/{id_file}/{id_user}")
+	public ResponseEntity<HttpStatus> delete(@PathVariable String id_file,@PathVariable String id_user) {
 		try {
-			List<User_file> list = userFileService.GetId(userFile.getId_user(), userFile.getId_file());
+			List<User_file> list = userFileService.GetId(id_user, id_file);
 			switch (list.size()){
 				case 0:
 					return new ResponseEntity<>(HttpStatus.OK);
@@ -138,6 +134,24 @@ public class UserFileController {
 
 
 		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	//thay doi trang thai chia se file $check$
+	// hasaccess -> true =public(id =0) ; false = private(id=owner)
+	//  neu tra ve true khi file da public -> server error (private tuong tu)
+	@PutMapping("/access/{owner_id}/{hasaccess}/{file_id}")
+	public ResponseEntity<User_file> ChangeAccessFile(@PathVariable String owner_id
+			, @PathVariable("file_id") String file_id, @PathVariable("hasaccess") boolean hasaccess){
+		try{
+			String currentUser_id = hasaccess?owner_id:"0";
+			User_file user_file = userFileService.GetId(currentUser_id, file_id).get(0);
+
+			user_file.setId_user(hasaccess?"0": owner_id);
+			return new ResponseEntity<User_file>(userFileService.save(user_file), HttpStatus.OK);
+
+		} catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -190,52 +204,7 @@ public class UserFileController {
 		return new ResponseEntity<>(list.get(0).getId(), HttpStatus.OK);
 	}
 
-	//thay doi quyen truy cap cua 1 user khac
-	@PutMapping("/access/{id}/{hasaccess}")
-	public ResponseEntity<User_file> ChangeAccessFile(@RequestBody User_file userFile,@RequestBody User owner
-			, @PathVariable("id") String id, @PathVariable("hasaccess") boolean hasaccess){
-		try{
 
-			Optional<User_file> userFileData = userFileService.findById(id);
 
-			if (userFileData.isPresent()){
-				User_file user_file =  userFileData.get();
-				user_file.setId_file(userFile.getId_file());
-				user_file.setId_user(hasaccess?"0": owner.getId());
-				return new ResponseEntity<User_file>(userFileService.save(user_file), HttpStatus.OK);
-			}
-
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (Exception e){
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	public void shareFileTo(String idFile, String id_owner, String id_share) {
-		
-	}
-	//danh sach cac file user duoc chia se
-	@PutMapping("/useraccess/{user_id}/{hasaccess}")
-	public ResponseEntity<User_file> ChangeUserAccessFile(@RequestBody User_file userFile
-			, @PathVariable("hasaccess") boolean hasaccess,@PathVariable("user_id") String user_id){
-		try{
-			List<User_file> list = userFileService.GetId(userFile.getId_user(), userFile.getId_file());
-			if (list.size() != 1){
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			String id = list.get(0).getId();
-			Optional<User_file> userFileData = userFileService.findById(id);
-
-			if (userFileData.isPresent()){
-				User_file user_file =  userFileData.get();
-				user_file.setId_file(userFile.getId_file());
-				user_file.setId_user(hasaccess?"0":user_id);
-				return new ResponseEntity<User_file>(userFileService.save(user_file), HttpStatus.OK);
-			}
-
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (Exception e){
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
 }
