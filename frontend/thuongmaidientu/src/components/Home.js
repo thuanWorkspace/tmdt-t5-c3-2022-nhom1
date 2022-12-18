@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Footer from "./footer/Footer";
 import Header from "./Header";
 import Service from "./Service";
 function Home() {
@@ -47,7 +46,6 @@ function Home() {
         </span>
         <Service />
       </span>
-      <Footer />
     </div>
   );
 }

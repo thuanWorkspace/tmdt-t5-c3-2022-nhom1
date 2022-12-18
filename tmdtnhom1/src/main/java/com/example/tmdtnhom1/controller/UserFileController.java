@@ -75,14 +75,6 @@ public class UserFileController {
 		userFileService.downloadPublicFile();
 	}
 
-	// phu $check$
-	// api: /sharefile
-	// owner shares file to user
-//	@PostMapping("access/{id_owner}/sharetoUser/{id_file}/{id_user}")
-//	public ResponseEntity<User_file> FileShareToUser(@PathVariable String id_owner,@PathVariable String id_file,@PathVariable String id_user) {
-//
-//
-//	}
 
 	// tien
 	// api: /createfolder
