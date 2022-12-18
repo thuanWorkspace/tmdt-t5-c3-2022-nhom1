@@ -136,8 +136,40 @@ public class UserController {
 		}
 	}
 
+	/*
+	viết api chia sẻ thông qua email ( không phải qua id_user nữa) $check$
+	-> api get IDbyemail ,fontend xử lí get id và lưu vào userFile
+	Nếu không có hoặc tồn tại 2 user có email giống nhau sẽ trả về nocontent
+	 */
+	@GetMapping("/user/findId/{email}")
+	public ResponseEntity<String> getIDbyEmail(@PathVariable String email){
+		try{
+			User user = userService.findByEmail(email);
+			if (user != null){
+				return new ResponseEntity<String>(user.getId(),HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// phu
-	// tu dong tich diem
+	// tu dong tich diem $check$
+	@GetMapping("/user/getScore/{user_id}")
+	public ResponseEntity<Integer> getScoreOfUser(@PathVariable String user_id){
+		try{
+			Optional<User> userData = userService.findById(user_id);
+			if (userData.isPresent()) {
+				return new ResponseEntity<Integer>(userData.get().getScore(), HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PutMapping("/user/payment/{user_id}")
 	public ResponseEntity<User> updateAfterPayment(@PathVariable("user_id") String user_id,
 			@RequestBody Product product) {
