@@ -210,7 +210,9 @@ public class UserFileController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	public void shareFileTo(String idFile, String id_owner, String id_share) {
+		
+	}
 	//danh sach cac file user duoc chia se
 	@PutMapping("/useraccess/{user_id}/{hasaccess}")
 	public ResponseEntity<User_file> ChangeUserAccessFile(@RequestBody User_file userFile
