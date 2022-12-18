@@ -66,9 +66,13 @@ public class UserProductService {
 	//phu
 	//mua san pham
 	public UserProduct orderProduct(UserProduct userProduct, int score) throws Exception {
-		autoIncreseScoreWhenBuyProduct(userProduct,score);
-		paymentOnline();
-		return userProductRepository.save(userProduct);
+		if (checkScoreInputProduct(userProduct.getId_user(),userProduct.getId_product(),score)){
+			autoIncreseScoreWhenBuyProduct(userProduct,score);
+			paymentOnline();
+			return userProductRepository.save(userProduct);
+		}
+
+		return null;
 	}
 
 	public UserProduct orderProductbyScore(UserProduct userProduct) {
@@ -153,12 +157,12 @@ public class UserProductService {
 		User user = userRepository.findById(id_user).get();
 
 		if (user.getScore() < score){
-//			throw new Exception("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
-			return false;
+			throw new IndexOutOfBoundsException("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
+//			return false;
 		}
 		if (product.getScore() < score){
-//			throw new Exception("Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
-			return false;
+			throw new NumberFormatException();//"Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
+//			return false;
 		}
 		return true;
 	}
