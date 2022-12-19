@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.tmdtnhom1.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import com.example.tmdtnhom1.service.UserService;
  * @author MyPC
  *
  */
-
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userapi")
 public class UserController {

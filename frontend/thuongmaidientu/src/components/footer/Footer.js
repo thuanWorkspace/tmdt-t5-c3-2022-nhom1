@@ -36,7 +36,7 @@ const listItem = [
 ];
 export default function Footer() {
   return (
-    <div className="  bg-gray-600 mt-32 h-full">
+    <div className="  bg-gray-600 mt-10 h-full">
       <span className=" flex justify-evenly w-full mx-auto text-white">
         {listItem.map((item, index) => (
           <FooterItem key={index} name={item.name} listItem={item.listItem} />

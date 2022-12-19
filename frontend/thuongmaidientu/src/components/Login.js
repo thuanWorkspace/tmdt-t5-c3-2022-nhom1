@@ -16,9 +16,9 @@ function Login() {
             <i className="fa fa-google mr-2"></i>
             <h3 className="">ĐĂNG NHẬP VỚI GOOGLE</h3>
           </Link>
-          <Link className="flex items-center py-2 bg-blue-700 px-12 text-white shrink-0 rounded-md ">
+          <Link className="flex items-center bg-blue-700 px-12 py-2 w-2/5 text-white shrink-0 rounded-md ">
             <i className="fa fa-facebook "></i>
-            <h3 className="">FACEBOOK</h3>
+            <h3 className="ml-2">FACEBOOK</h3>
           </Link>
         </span>
         <h3 className="text-center mt-3">
