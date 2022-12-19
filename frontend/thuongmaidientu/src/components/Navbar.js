@@ -18,15 +18,7 @@ function Navbar() {
         />
         <h2 className="text-blue-600 font-medium">T_Cloud</h2>
       </Link>
-      <span className="flex space-x-4">
-        <input
-          type="text"
-          placeholder="Tìm kiếm"
-          className="outline-none border-solid"
-          style={{ width: "800px" }}
-        />
-        <i className="fa fa-search translate-x-[-3rem] translate-y-[0.3rem] items-center "></i>
-      </span>
+
       <span className="block">
         <Link
           to="/register"

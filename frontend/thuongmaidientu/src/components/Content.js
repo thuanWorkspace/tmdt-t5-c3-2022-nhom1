@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "./Context/AppContext";
 
 function Content() {
+  const { products } = useContext(AppContext);
   return (
     <div className="">
       <nav
@@ -30,40 +33,42 @@ function Content() {
             <th scope="col">Hoạt Động</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th
-              scope="row"
-              className="flex justify-center items-center space-x-3"
-            >
-              <input type="checkbox" />
-              <i className="fa fa-folder"></i>
-              <h3>Photos</h3>
-            </th>
+        {products.map((product, index) => (
+          <tbody key={index}>
+            <tr>
+              <th
+                scope="row"
+                className="flex justify-center items-center space-x-3"
+              >
+                <input type="checkbox" />
+                <i className="fa fa-folder"></i>
+                <h3>{product.product_name}</h3>
+              </th>
 
-            <td>_</td>
-            <td>Public</td>
-            <td className=" flex w-8  m-auto items-center ">
-              <i className="fa fa-download mr-6"></i>
-              <i className="fa fa-share"></i>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input type="checkbox" />
-            </th>
-            <td></td>
-            <td>Private</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input type="checkbox" />
-            </th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+              <td>_</td>
+              <td>Public</td>
+              <td className=" flex w-8  m-auto items-center ">
+                <i className="fa fa-download mr-6"></i>
+                <i className="fa fa-share"></i>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <input type="checkbox" />
+              </th>
+              <td></td>
+              <td>Private</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <input type="checkbox" />
+              </th>
+              <td colSpan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        ))}
       </table>
     </div>
   );

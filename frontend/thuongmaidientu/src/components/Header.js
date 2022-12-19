@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "./Context/AppContext";
 
 function Header() {
+  const { users, handleSearch } = useContext(AppContext);
   return (
     <div className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1 shadow-xl">
       <Link
@@ -25,41 +28,36 @@ function Header() {
           placeholder="Tìm kiếm"
           className="outline-none border-solid"
           style={{ width: "800px" }}
+          onChange={handleSearch}
         />
         <i className="fa fa-search translate-x-[-3rem] translate-y-[0.3rem] items-center "></i>
       </span>
       <div className="dropdown">
         <button
-          className="btn dropdown-toggle border-none bg-blue-600 text-cyan-50"
+          className="btn dropdown-toggle border-none bg-blue-600 hover:bg-blue-600 text-cyan-50 hover:text-cyan-50"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Triều Tiên Nguyễn
+          {users[0].username}
         </button>
         <ul className="dropdown-menu dropdown-menu-dark">
           <li>
-            <a className="dropdown-item active" href="#">
-              Trang chủ
-            </a>
+            <a className="dropdown-item active">Trang chủ</a>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <Link className="dropdown-item" to="/user/infor">
               Thông tin tài khoản
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
-              Quản lí file
-            </a>
+            <Link className="dropdown-item">Quản lí file</Link>
           </li>
           <li>
             <hr className="dropdown-divider" />
           </li>
           <li>
-            <a className="dropdown-item" href="#">
-              Đăng xuất
-            </a>
+            <Link className="dropdown-item">Đăng xuất</Link>
           </li>
         </ul>
       </div>

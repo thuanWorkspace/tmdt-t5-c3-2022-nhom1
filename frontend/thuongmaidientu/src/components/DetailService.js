@@ -13,24 +13,20 @@ export default function DetailService({ divRef, handleClickClose, product }) {
         <h3 className="mt-6 text-black font-semibold text-xl">
           {product?.product_name}
         </h3>
-        <p className="mt-3">
-          Gói STORAGE là gói dịch vụ cho phép LƯU TRỮ VỚI DUNG LƯỢNG RẤT LỚN
-          (1TB - 100TB) và download/upload TỐC ĐỘ CAO, phù hơp với mọi khách
-          hàng là các công ty/tổ chức/cá nhân/dự án starup đang hoạt động trong
-          nhiều lĩnh vực (game, thiết kế, phim ảnh...).
-        </p>
+        <p className="mt-3">{product?.description}</p>
         <span className="mt-6 bg-red-200 block w-full rounded-sm">
           <ul className="">
             <h3 className="text-red-500 text-lg font-semibold ml-4 ">
-              Tại sao khách hàng nên chọn gói Storage Fshare?
+              Tại sao khách hàng nên chọn gói {product?.product_name} T_Cloud?
             </h3>
             <li className=" mt-2 ml-4">
-              Dung lượng lưu trữ lớn: 1TB đến 100TB đảm bảo.
+              Dung lượng lưu trữ lớn:{" "}
+              {(product?.storage / 1073741824).toFixed(0) + "GB"} đảm bảo.
             </li>
             <li className=" mt-2 ml-4">
-              Quyền lợi dành riêng cho gói Storage: Thời gian lưu trữ file không
-              bị giới hạn xuyên suốt gói mua, không cần bận tâm bị xoá mất file
-              trong quá trình sử dụng.
+              Quyền lợi dành riêng cho gói {product?.product_name}: Thời gian
+              lưu trữ file không bị giới hạn xuyên suốt gói mua, không cần bận
+              tâm bị xoá mất file trong quá trình sử dụng.
             </li>
             <li className=" mt-2 ml-4">
               Tốc độ DOWNLOAD/UPLOAD cao, không mất thời gian chờ
@@ -39,7 +35,7 @@ export default function DetailService({ divRef, handleClickClose, product }) {
               Xem video trực tuyến không giới hạn số lần xem.
             </li>
             <li className=" mt-2 ml-4 pb-4">
-              Ứng dụng Fshare Tool trên nhiều nền tảng thiết bị: Macbook, PC và
+              Ứng dụng T_Cloud Tool trên nhiều nền tảng thiết bị: Macbook, PC và
               Mobile với nhiều tính năng tiện ích. Tham khảo thêm tại đây.
             </li>
           </ul>
