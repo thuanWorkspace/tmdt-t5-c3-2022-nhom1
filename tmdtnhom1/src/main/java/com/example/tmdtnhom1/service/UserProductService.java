@@ -23,53 +23,56 @@ public class UserProductService {
 	@Autowired
 	UserRepository userRepository;
 
-	// phu
-	// danh sach lich su mua san pham
+	//phu
+	//danh sach lich su mua san pham
 	public List<UserProduct> getUserProductByUser(String id_user) {
 		return userProductRepository.getUserProductByUser(id_user);
 	}
 
-	// danh sach san pham mua con han
+	//danh sach san pham mua con han
 	public List<UserProduct> getAvailableProduct(String id_user) {
 		List<UserProduct> list = new ArrayList<>();
 		List<UserProduct> listproduct = userProductRepository.getUserProductByUser(id_user);
 		Product product;
-		for (UserProduct sp : listproduct) {
+		for(UserProduct sp : listproduct){
 			product = productRepository.findById(sp.getId_product()).get();
-			if (DateUtils.addDate(sp.getPurchase_date(), product.getPeriod()).after(DateUtils.currentDate())) {
+			if (DateUtils.addDate(sp.getPurchase_date(),product.getPeriod()).after(DateUtils.currentDate())){
 				list.add(sp);
 			}
 		}
-		System.out.println("size :" + list.size());
+		System.out.println("size :"+list.size());
 
-		// bo product mua truoc neu co 2 product cung loai con han su dung
+		//bo product mua truoc neu co 2 product cung loai con han su dung
 		List<UserProduct> unUsed_list = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			for (int j = i; j < list.size(); j++) {
-				if (i == j)
-					continue;
-				if (list.get(i).getId_product().equalsIgnoreCase(list.get(j).getId_product())) {
-					UserProduct unUsed_product = list.get(i).getPurchase_date().before(list.get(j).getPurchase_date())
-							? list.get(i)
-							: list.get(j);
+				if (i == j) continue;
+				if (list.get(i).getId_product().equalsIgnoreCase(list.get(j).getId_product())){
+					UserProduct unUsed_product = list.get(i).getPurchase_date().before(list.get(j).getPurchase_date())?
+							list.get(i) : list.get(j);
 					unUsed_list.add(unUsed_product);
-					System.out.println("remove userproduct " + unUsed_product.toString());
+					System.out.println("remove userproduct "+unUsed_product.toString());
 				}
 			}
 		}
-		for (UserProduct up : unUsed_list) {
+		for (UserProduct up : unUsed_list){
 			list.remove(up);
 		}
 
 		return list;
 	}
+	
 
-	// phu
-	// mua san pham
+	//phu
+	//mua san pham
 	public UserProduct orderProduct(UserProduct userProduct, int score) throws Exception {
-		autoIncreseScoreWhenBuyProduct(userProduct, score);
-		paymentOnline();
-		return userProductRepository.save(userProduct);
+		if (checkScoreInputProduct(userProduct.getId_user(),userProduct.getId_product(),score)){
+			autoIncreseScoreWhenBuyProduct(userProduct,score);
+			paymentOnline();
+			return userProductRepository.save(userProduct);
+		}
+
+		return null;
 	}
 
 	public UserProduct orderProductbyScore(UserProduct userProduct) {
@@ -154,13 +157,13 @@ public class UserProductService {
 		Product product = productRepository.findById(id_product).get();
 		User user = userRepository.findById(id_user).get();
 
-		if (user.getScore() < score) {
-//			throw new Exception("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
-			return false;
+		if (user.getScore() < score){
+			throw new IndexOutOfBoundsException("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
+//			return false;
 		}
-		if (product.getScore() < score) {
-//			throw new Exception("Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
-			return false;
+		if (product.getScore() < score){
+			throw new NumberFormatException();//"Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
+//			return false;
 		}
 		return true;
 	}
