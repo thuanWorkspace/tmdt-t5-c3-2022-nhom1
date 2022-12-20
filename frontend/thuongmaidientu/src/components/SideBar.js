@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 function SideBar() {
   return (
@@ -22,7 +22,9 @@ function SideBar() {
         </div>
         <div className="flex items-center text-center p-2 mb-2 ">
           <i className="fa fa-share mr-4"></i>
-          <li>Services</li>
+          <li>
+            <Link to="/service">Service</Link>
+          </li>
         </div>
       </ul>
     </div>
