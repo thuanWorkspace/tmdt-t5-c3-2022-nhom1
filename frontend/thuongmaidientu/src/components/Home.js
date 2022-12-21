@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Footer from "./footer/Footer";
 import Header from "./Header";
+import Service from "./Service";
 function Home() {
   return (
     <div className="">
@@ -44,8 +44,8 @@ function Home() {
             QUẢN LÝ TẬP TIN
           </Link>
         </span>
+        <Service />
       </span>
-      <Footer />
     </div>
   );
 }

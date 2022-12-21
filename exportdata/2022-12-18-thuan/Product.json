@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "6371bfe40ac8ae8ad1af59d4"
+  },
+  "storage": 0,
+  "transfer": {
+    "$numberLong": "40000000000"
+  },
+  "period": 2000000000,
+  "product_name": "GÓI DUNG LƯỢNG TẢI",
+  "price": 60,
+  "score": 55,
+  "description": "Gói STORAGE là gói dịch vụ cho phép tải theo dung lượng lớn không có thời hạn và download/upload TỐC ĐỘ CAO, phù hơp với mọi khách hàng là các công ty/tổ chức/cá nhân/dự án starup đang hoạt động trong nhiều lĩnh vực (game, thiết kế, phim ảnh...)."
+},{
+  "_id": {
+    "$oid": "63804438853fe47cbe059514"
+  },
+  "product_name": "VIP",
+  "storage": {
+    "$numberLong": "70000000000"
+  },
+  "transfer": -1,
+  "period": 730,
+  "price": 200,
+  "score": 100,
+  "description": "Gói VIP là gói dịch vụ cho phép LƯU TRỮ VỚI DUNG LƯỢNG RẤT LỚN 70GB và download/upload TỐC ĐỘ CAO, phù hơp với mọi khách hàng là các công ty/tổ chức/cá nhân/dự án starup đang hoạt động trong nhiều lĩnh vực (game, thiết kế, phim ảnh...)."
+}]

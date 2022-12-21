@@ -10,21 +10,32 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Service from "./components/Service";
 import Payment from "./components/Payment";
+import InforUser from "./components/InforUser";
+import { AppProvider } from "./components/Context/AppContext";
+import Content from "./components/Content";
+import ForgotPassword from "./components/ForgotPassword";
+import ChangePassword from "./components/ChangePassword";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/file/manager" element={<App />} />
-        <Route path="/" element={<Navbar />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/payment" element={<Payment />} />
-      </Routes>
-    </Router>
+    <AppProvider>
+      <Router>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/file/manager" element={<App />} />
+          <Route path="/" element={<Navbar />} />
+          <Route path="/user/infor" element={<InforUser />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/content" element={<Content />} />
+        </Routes>
+      </Router>
+    </AppProvider>
   </React.StrictMode>
 );
 

@@ -40,21 +40,45 @@ public class UserProductService {
 				list.add(sp);
 			}
 		}
+		System.out.println("size :"+list.size());
+
+		//bo product mua truoc neu co 2 product cung loai con han su dung
+		List<UserProduct> unUsed_list = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i; j < list.size(); j++) {
+				if (i == j) continue;
+				if (list.get(i).getId_product().equalsIgnoreCase(list.get(j).getId_product())){
+					UserProduct unUsed_product = list.get(i).getPurchase_date().before(list.get(j).getPurchase_date())?
+							list.get(i) : list.get(j);
+					unUsed_list.add(unUsed_product);
+					System.out.println("remove userproduct "+unUsed_product.toString());
+				}
+			}
+		}
+		for (UserProduct up : unUsed_list){
+			list.remove(up);
+		}
+
 		return list;
 	}
-
+	
 
 	//phu
 	//mua san pham
-	public UserProduct orderProduct(UserProduct userProduct) {
-		autoIncreseScoreWhenBuyProduct(userProduct);
-		paymentOnline();
-		return userProductRepository.save(userProduct);
+	public UserProduct orderProduct(UserProduct userProduct, int score) throws Exception {
+		if (checkScoreInputProduct(userProduct.getId_user(),userProduct.getId_product(),score)){
+			autoIncreseScoreWhenBuyProduct(userProduct,score);
+			paymentOnline();
+			return userProductRepository.save(userProduct);
+		}
+
+		return null;
 	}
 
 	public UserProduct orderProductbyScore(UserProduct userProduct) {
 		/**
-		 * if ( user uses convert Score to promotion ) { reduce score instead money when order }
+		 * if ( user uses convert Score to promotion ) { reduce score instead money when
+		 * order }
 		 */
 		autoDecreseScoreWhenBuyProduct(userProduct);
 		paymentOnline();
@@ -64,23 +88,24 @@ public class UserProductService {
 	private void autoDecreseScoreWhenBuyProduct(UserProduct userProduct) {
 		User user = userRepository.findById(userProduct.getId_user()).get();
 		Product product = productRepository.findById(userProduct.getId_product()).get();
-		user.updateScore((int) - (product.getPrice() / User.score_factor));
+		user.updateScore((int) -(product.getPrice() / User.score_factor));
 		System.out.println(user.getScore());
 		userRepository.save(user);
 	}
-
 
 	public void paymentOnline() {
 
 	}
 
-	public void autoIncreseScoreWhenBuyProduct(UserProduct userProduct) {
+	public void autoIncreseScoreWhenBuyProduct(UserProduct userProduct, int score) throws Exception {
 		User user = userRepository.findById(userProduct.getId_user()).get();
 		Product product = productRepository.findById(userProduct.getId_product()).get();
-		user.updateScore(product.getScore());
+		user.updateScore(product.getScore() - score);
+		if (user.getScore() < 0) {
+			throw new Exception("User Not Enough score ");
+		}
 		userRepository.save(user);
 	}
-
 
 	public UserProduct save(UserProduct userProduct) {
 		return userProductRepository.save(userProduct);
@@ -93,14 +118,53 @@ public class UserProductService {
 			User user = userRepository.findById(user_product.getId_user()).get();
 			boolean result = user.getValueScore() < product.getPrice();
 			System.out.println(result);
-			if (result){
+			if (result) {
 				System.out.println(user.getValueScore() + " <false " + product.getPrice());
 				return false;
 			}
 			return true;
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public UserProduct checkAvailableProduct(String id_user, String id_product) {
+		for (UserProduct up : getAvailableProduct(id_user)) {
+			if (up.getId_product().equals(id_product))
+				return up;
+		}
+		return null;
+	}
+
+	public boolean updateAvalableUserProduct(UserProduct userProduct) {
+		userProduct.setAvailable(false);
+		save(userProduct);
+
+		User user = userRepository.findById(userProduct.getId_user()).get();
+		Product product = productRepository.findById(userProduct.getId_product()).get();
+		user.updateData(-product.getTransfer());
+		userRepository.save(user);
+		return true;
+	}
+
+	/*
+	 * viết phương thức kiểm tra điểm của user và giá user truyền vào có hợp
+	 * lệ ( được viết trong service) ->kt điểm có vượt quá điểm người dùng đang có
+	 * hoặc quá số tiền product phải trả
+	 */
+	public boolean checkScoreInputProduct(String id_user, String id_product, int score) throws Exception {
+		Product product = productRepository.findById(id_product).get();
+		User user = userRepository.findById(id_user).get();
+
+		if (user.getScore() < score){
+			throw new IndexOutOfBoundsException("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
+//			return false;
+		}
+		if (product.getScore() < score){
+			throw new NumberFormatException();//"Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
+//			return false;
+		}
+		return true;
 	}
 }

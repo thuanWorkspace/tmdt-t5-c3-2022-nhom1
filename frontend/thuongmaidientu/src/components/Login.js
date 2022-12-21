@@ -11,14 +11,14 @@ function Login() {
           <h2 className="text-2xl ">Đăng nhập</h2>
           <h4 className="mt-2 text-lg">Đăng nhập bằng Google/Facebook</h4>
         </span>
-        <span className="flex justify-around items-center mt-5  m-auto shrink-0 w-5/6">
-          <Link className="flex items-center p-2 bg-blue-500 text-white rounded-md">
-            <i className="fa fa-google mr-2"></i>
-            <h3 className="">ĐĂNG NHẬP VỚI GOOGLE</h3>
+        <span className="flex justify-around items-center mt-5  m-auto shrink-0 w-full">
+          <Link className="flex text-center items-center bg-blue-400  px-10 py-2 w-2/5 text-white shrink-0 rounded-md ml-4">
+            <i className="fa fa-google"></i>
+            <h3 className="w-full">GOOGLE</h3>
           </Link>
-          <Link className="flex items-center py-2 bg-blue-700 px-12 text-white shrink-0 rounded-md ">
+          <Link className="flex text-center items-center bg-blue-700  px-10 py-2 w-2/5 text-white shrink-0 rounded-md mr-4">
             <i className="fa fa-facebook "></i>
-            <h3 className="">FACEBOOK</h3>
+            <h3 className="ml-2">FACEBOOK</h3>
           </Link>
         </span>
         <h3 className="text-center mt-3">
@@ -41,9 +41,14 @@ function Login() {
             <input type="checkbox" className="mr-4 " />
             <h3>Ghi nhớ đăng nhập</h3>
           </span>
-          <Link className="text-blue-500">Quên mật khẩu?</Link>
+          <Link className="text-blue-500" to="/forgotpassword">
+            Quên mật khẩu?
+          </Link>
         </span>
-        <Link className=" p-2 mx-11 mt-4 bg-red-600 text-white flex justify-center rounded-md">
+        <Link
+          to="/home"
+          className=" p-2 mx-11 mt-4 bg-red-600 text-white flex justify-center rounded-md"
+        >
           ĐĂNG NHẬP
         </Link>
         <span className="flex items-center justify-center mt-3 pb-8">

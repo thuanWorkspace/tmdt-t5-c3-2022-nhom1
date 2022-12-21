@@ -17,7 +17,7 @@ public interface User_fileRepository extends MongoRepository<User_file,String> {
     @Query("{'id_user': ?0}")
     List<User_file> getUserSharedFile(String id_user);
 
-    @Query("{'id_file': ?0}")
-    List<User_file> getUseraccessFile(String id_file);
 
+    @Query("{'id_file': ?0}")
+    List<User_file> findByIdFile(String file_id);
 }

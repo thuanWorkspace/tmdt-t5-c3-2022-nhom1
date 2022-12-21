@@ -4,22 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.tmdtnhom1.model.User;
+import com.example.tmdtnhom1.service.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.tmdtnhom1.model.File;
 import com.example.tmdtnhom1.model.User_file;
 import com.example.tmdtnhom1.service.FileService;
 import com.example.tmdtnhom1.service.UserFileService;
 
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/fileapi")
 public class FileController {
@@ -30,6 +28,14 @@ public class FileController {
 
     @Autowired
     UserFileService userFileService;
+    @Autowired
+    UserService userService;
+    /**
+     * get all files in id user.
+     * @param id_user
+     * @return
+     * @author phu
+     */
 
     //danh sach file so huu
     @GetMapping("/file/FileManager/{id_user}")
@@ -48,7 +54,13 @@ public class FileController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    /**
+     * get specific file by id of file. not user relate.
+     * @purpose check
+     * @paramid_user
+     * @return
+     * @author phu
+     */
     //tim file bang idfile
     @GetMapping("/file/{id}")
     public ResponseEntity<File> getById(@PathVariable("id") String id_file){
@@ -96,6 +108,25 @@ public class FileController {
         }
     }
 
+    //phu
+    //tim kiem public file
+    @GetMapping("file/searchpublic/{name}")
+    public ResponseEntity<List<File>> getListFileSearchByName(@PathVariable("name") String name){
+        try{
+            List<File> list = new ArrayList<>();
+            fileService.getListFileSearchByName(name).forEach(list::add);
+            if (list.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(list,HttpStatus.OK);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 //
 //    @PutMapping("/file/{id}")
@@ -126,19 +157,50 @@ public class FileController {
     @PostMapping("/file/upload/{id_user}")
     public ResponseEntity<File> upload(@RequestBody File file,@PathVariable("id_user") String id_user){
     	try {
-    		return new ResponseEntity<File>(fileService.save(new File(file.getFile_name(), id_user, file.getSize())), HttpStatus.OK);
+            File _file = fileService.save(new File(file.getFile_name(), id_user, file.getSize()));
+            User_file user_file = userFileService.save(new User_file(id_user, _file.getId()));
+            if (_file != null && user_file != null){
+                return new ResponseEntity<File>(_file, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
-    @DeleteMapping("/file/delete/{id_user}")
-    public ResponseEntity<HttpStatus> deletefile(@PathVariable("id") String id) {
+    @DeleteMapping("/file/delete/{id_file}")
+    public ResponseEntity<HttpStatus> deletefile(@PathVariable("id_file") String id_file) {
         try {
-            fileService.deleteById(id);
+            List<User_file> user_fileList = userFileService.getUseraccessFile(id_file);
+            fileService.deleteById(id_file);
+            for(User_file uf : user_fileList){
+                userFileService.deleteById(uf.getId());
+            }
+
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //phu
+    @PutMapping("/file/dowload/{id_user}/{id_file}")
+    public ResponseEntity<File> downloadFile(@PathVariable String id_user,@PathVariable String id_file){
+        try{
+            File _file = fileService.findById(id_file).get();
+            User _user = userService.findById(id_user).get();
+            if (_file == null || _user == null){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<File>(fileService.downloadFile(_user,_file),HttpStatus.OK);
+        } catch (IndexOutOfBoundsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

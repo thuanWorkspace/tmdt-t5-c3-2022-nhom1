@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "./Context/AppContext";
 
 function Header() {
+  const { users, handleSearch } = useContext(AppContext);
   return (
     <div className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1 shadow-xl">
       <Link
@@ -25,41 +28,48 @@ function Header() {
           placeholder="Tìm kiếm"
           className="outline-none border-solid"
           style={{ width: "800px" }}
+          onChange={handleSearch}
         />
         <i className="fa fa-search translate-x-[-3rem] translate-y-[0.3rem] items-center "></i>
       </span>
-      <div class="dropdown">
+      <div className="dropdown">
         <button
-          class="btn dropdown-toggle border-none bg-blue-600 text-cyan-50"
+          className="btn dropdown-toggle border-none bg-blue-600 hover:bg-blue-600 text-cyan-50 hover:text-cyan-50"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Triều Tiên Nguyễn
+          {users[0].username}
         </button>
-        <ul class="dropdown-menu dropdown-menu-dark">
+        <ul className="dropdown-menu dropdown-menu-dark">
           <li>
-            <a class="dropdown-item active" href="#">
+            <Link className="dropdown-item active" to="/home">
               Trang chủ
-            </a>
+            </Link>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <Link className="dropdown-item" to="/user/infor">
               Thông tin tài khoản
-            </a>
+            </Link>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <Link className="dropdown-item" to="/file/manager">
               Quản lí file
-            </a>
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/changepassword" className=" dropdown-item">
+              Đổi mật khẩu
+            </Link>
           </li>
           <li>
-            <hr class="dropdown-divider" />
+            <hr className="dropdown-divider" />
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <Link className="dropdown-item" to="/login">
               Đăng xuất
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
