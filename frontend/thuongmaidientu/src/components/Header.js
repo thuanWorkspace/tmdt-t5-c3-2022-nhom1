@@ -43,7 +43,9 @@ function Header() {
         </button>
         <ul className="dropdown-menu dropdown-menu-dark">
           <li>
-            <a className="dropdown-item active">Trang chủ</a>
+            <Link className="dropdown-item active" to="/home">
+              Trang chủ
+            </Link>
           </li>
           <li>
             <Link className="dropdown-item" to="/user/infor">
@@ -51,13 +53,23 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link className="dropdown-item">Quản lí file</Link>
+            <Link className="dropdown-item" to="/file/manager">
+              Quản lí file
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/changepassword" className=" dropdown-item">
+              Đổi mật khẩu
+            </Link>
           </li>
           <li>
             <hr className="dropdown-divider" />
           </li>
           <li>
-            <Link className="dropdown-item">Đăng xuất</Link>
+            <Link className="dropdown-item" to="/login">
+              Đăng xuất
+            </Link>
           </li>
         </ul>
       </div>

@@ -13,6 +13,8 @@ import Payment from "./components/Payment";
 import InforUser from "./components/InforUser";
 import { AppProvider } from "./components/Context/AppContext";
 import Content from "./components/Content";
+import ForgotPassword from "./components/ForgotPassword";
+import ChangePassword from "./components/ChangePassword";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,6 +23,8 @@ root.render(
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/file/manager" element={<App />} />
           <Route path="/" element={<Navbar />} />
           <Route path="/user/infor" element={<InforUser />} />

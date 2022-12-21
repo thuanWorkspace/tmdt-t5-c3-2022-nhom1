@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AppContext } from "./Context/AppContext";
 import Header from "./Header";
 import SideBar from "./SideBar";
@@ -37,6 +38,7 @@ export default function InforUser() {
               </tr>
             </tbody>
           </table>
+          <hr />
         </div>
       </div>
     </div>

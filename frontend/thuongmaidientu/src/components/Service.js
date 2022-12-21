@@ -36,7 +36,6 @@ export default function Service() {
 
   return (
     <>
-      <Header />
       <div className="w-full mt-16 mb-16 relative ">
         <h2 className="text-center font-medium text-xl">GÓI DỊCH VỤ</h2>
         <div className="w-3/4 m-auto flex justify-around">
