@@ -6,25 +6,28 @@ export const AppContext = createContext({});
 
 export const AppProvider = ({ children }) => {
   const [users, setUsers] = useState([0]);
-  const [products, setProducts] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [state, setState] = useState();
   useEffect(() => {
-    getProducts();
+    getFiles();
   }, []);
-  const getProducts = async () => {
-    let result = await fetch("http://localhost:8080/productapi/products");
+  const getFiles = async () => {
+    let result = await fetch(
+      "http://localhost:8080/fileapi/file/FileManager/6371bd880ac8ae8ad1af59ce"
+    );
     result = await result.json();
-    setProducts(result);
+    setFiles(result);
   };
   const handleSearch = async (e) => {
     let name = e.target.value;
     let result = await fetch(
-      "http://localhost:8080/fileapi/file/searchpublic/{name}"
+      "http://localhost:8080/fileapi/file/searchpublic/tailieu"
     );
     result = await result.json();
     if (result) {
-      setProducts(result);
+      setFiles(result);
     } else {
-      getProducts();
+      getFiles();
     }
   };
   useEffect(() => {
@@ -37,8 +40,22 @@ export const AppProvider = ({ children }) => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:8080/userfileapi/access/status/6371bd880ac8ae8ad1af59ce/6371c1f10ac8ae8ad1af59da"
+      )
+      .then((res) => {
+        console.log(res.data);
+        setState(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
-    <AppContext.Provider value={{ users, handleSearch, products }}>
+    <AppContext.Provider value={{ users, handleSearch, files, state }}>
       {children}
     </AppContext.Provider>
   );

@@ -15,6 +15,9 @@ import { AppProvider } from "./components/Context/AppContext";
 import Content from "./components/Content";
 import ForgotPassword from "./components/ForgotPassword";
 import ChangePassword from "./components/ChangePassword";
+import HistoryBuy from "./components/HistoryBuy";
+import ExpiredService from "./components/ExpiredService";
+import FileShare from "./components/FileShare";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,7 +26,10 @@ root.render(
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/expiredservice" element={<ExpiredService />} />
+          <Route path="/fileshare" element={<FileShare />} />
           <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/historybuy/:id" element={<HistoryBuy />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/file/manager" element={<App />} />
           <Route path="/" element={<Navbar />} />
