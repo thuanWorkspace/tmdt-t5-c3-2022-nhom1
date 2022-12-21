@@ -157,14 +157,19 @@ public class UserProductService {
 		Product product = productRepository.findById(id_product).get();
 		User user = userRepository.findById(id_user).get();
 
+		if (product.getScore() < score){
+			throw new IndexOutOfBoundsException("Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
+//			return false;
+		}
 		if (user.getScore() < score){
 			throw new IndexOutOfBoundsException("Bạn không đủ điểm thưởng để thực hiện hành động này!!");
 //			return false;
 		}
-		if (product.getScore() < score){
-			throw new NumberFormatException();//"Số điểm bạn nhập vào vượt quá giá trị của sản phẩm!!");
-//			return false;
-		}
+
 		return true;
 	}
+
+    public List<UserProduct> finAll() {
+		return userProductRepository.findAll();
+    }
 }

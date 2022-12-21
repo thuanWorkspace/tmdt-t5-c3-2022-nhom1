@@ -16,6 +16,7 @@ import com.example.tmdtnhom1.model.User_file;
 import com.example.tmdtnhom1.service.FileService;
 import com.example.tmdtnhom1.service.UserFileService;
 
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/fileapi")
 public class FileController {

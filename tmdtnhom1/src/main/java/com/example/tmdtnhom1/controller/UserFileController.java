@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author MyPC
  *
  */
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userfileapi")
 public class UserFileController {

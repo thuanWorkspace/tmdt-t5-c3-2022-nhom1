@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Header from "./Header";
 import InfoService from "./InfoService";
+import axios from "axios";
 
-export default function Payment({ product }) {
+export default function Payment() {
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
+  
+  
+  useEffect(() =>{
+    const getData = async()=>{
+        const reqData = await fetch("http://localhost:8080/productapi/products");
+        const  resData =  await reqData.json();
+        setProducts(resData);
+      }
+      
+        getData();
+        if(products.length >0){
+          setSelectedOption(products[0].product_name)
+          setProduct(products[0])
+          console.log('product update data')
+        }
+        
+    }, []);
+
+  const [selectedOption, setSelectedOption] = useState();
+  
+    function ChangeSelected(e){
+      setSelectedOption(e.target.value)
+      console.log('product change')
+      products.forEach(el =>{
+        if(el.product_name === selectedOption){
+          console.log('change product',selectedOption)
+          setProduct(el);
+          console.log(product)
+        }
+      })
+    }
+
+  // useEffect(() =>{
+  //   products.forEach(el =>{
+  //     if(el.product_name === selectedOption){
+  //       console.log('change product',selectedOption)
+  //       setProduct(el);
+  //       console.log(product)
+  //     }
+  //   })
+  // },[selectedOption])
+
   return (
     <div className="">
       <Header />
@@ -17,11 +62,14 @@ export default function Payment({ product }) {
               id=""
               className="text-start rounded-md"
               style={{ border: "2px solid" }}
-            >
-              <option value="volvo">Gói Directlink</option>
-              <option value="saab">Gói Vip</option>
-              <option value="opel">Gói Storage</option>
-              <option value="audi">Mua thêm dung lượng tải</option>
+              value={selectedOption}
+              onChange={ChangeSelected}>
+                {products.map(o => (
+                  <option key={o.product_name} value={o.product_name}>{o.product_name}</option>
+                ))}
+            
+              
+              
             </select>
           </span>
           <div className="mt-4 flex w-3/4 text-center hover: cursor-pointer">
@@ -29,14 +77,7 @@ export default function Payment({ product }) {
               <h3>Directlink 200 GB</h3>
               <h3>150.000đ</h3>
             </span>
-            <span className="block outline outline-gray-100 w-1/3 mr-4 p-3 rounded-md text-gray-400 ">
-              <h3>Directlink 200 GB</h3>
-              <h3>150.000đ</h3>
-            </span>
-            <span className="block outline w-1/3 outline-gray-100 p-3 rounded-md  text-gray-400">
-              <h3>Directlink 200 GB</h3>
-              <h3>150.000đ</h3>
-            </span>
+            
           </div>
           <div className="mt-4">
             <h3 className="mr-4 text-black font-medium">
@@ -45,38 +86,22 @@ export default function Payment({ product }) {
                 <div className="mt-4 flex w-3/4 text-center hover: cursor-pointer">
                   <span className=" flex items-center justify-center outline outline-red-500 w-1/3 mr-4 rounded-md">
                     <i className="fa fa-credit-card mr-3"></i>
-                    <h3>Thẻ nội địa</h3>
+                    <h3>Tài Khoản Paypal</h3>
                   </span>
-                  <span className="flex items-cente outline outline-gray-100 w-1/3 mr-4  rounded-md text-gray-400 ">
-                    <h3>Directlink 200 GB</h3>
-                    <h3>150.000đ</h3>
-                  </span>
-                  <span className="flex items-center outline w-1/3 outline-gray-100 rounded-md  text-gray-400">
-                    <h3>Directlink 200 GB</h3>
-                    <h3>150.000đ</h3>
-                  </span>
+                  
                 </div>
               </span>
             </h3>
           </div>
           <div className="mt-8 text-center w-3/4">
-            <h3 className="font-medium">Lựa chọn thẻ thanh toán</h3>
+            {/* <h3 className="font-medium">Lựa chọn thẻ thanh toán</h3> */}
             <div className="flex justify-evenly mt-4">
               <img
-                src="https://icons.iconarchive.com/icons/graphicloads/flat-finance/256/atm-icon.png"
+                src="https://icons.iconarchive.com/icons/designbolts/credit-card-payment/256/Paypal-icon.png"
                 alt=""
                 className="w-20"
               />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/2560px-Mastercard-logo.svg.png"
-                alt=""
-                className="w-20"
-              />
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/217/217425.png"
-                alt=""
-                className="w-20"
-              />
+              
             </div>
           </div>
         </div>

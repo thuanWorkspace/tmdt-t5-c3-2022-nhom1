@@ -11,6 +11,8 @@ import Login from "./components/Login";
 import Service from "./components/Service";
 import Payment from "./components/Payment";
 import { AppContext, Provider } from "./Context/AppContext";
+import Admin from "./components/Admin";
+import Paypal from "./components/Paypal";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,6 +27,8 @@ root.render(
           <Route path="/register" element={<Register />} />
           <Route path="/service" element={<Service />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/pay/:price" element={<Paypal />} />
         </Routes>
       </Router>
     </Provider>

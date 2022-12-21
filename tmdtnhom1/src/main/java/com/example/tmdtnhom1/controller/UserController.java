@@ -17,6 +17,7 @@ import com.example.tmdtnhom1.service.UserService;
  *
  */
 
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userapi")
 public class UserController {
