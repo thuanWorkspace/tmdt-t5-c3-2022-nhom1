@@ -1,55 +1,135 @@
 package com.example.tmdtnhom1.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
-import com.example.tmdtnhom1.model.Product;
-import com.example.tmdtnhom1.model.UserProduct;
-import com.example.tmdtnhom1.model.UserType;
+import com.example.tmdtnhom1.model.*;
+import com.example.tmdtnhom1.repository.RoleRepository;
+import com.google.gson.Gson;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.repository.UserRepository;
 
+@Slf4j
 @Service
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
+	private RoleRepository roleRepository;
+
+	@Autowired
 	UserProductService userProductService;
 	@Autowired
 	ProductService productService;
+
+	private String jwtSecret = "tmdtAdZ605AtgIvJBhCIc6UO72NBTdxXTOcjDv2bjY390rqfm7rTRidkefRG7RX";
+	private static byte[] s256secret = new byte[32];
 	//admin
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}
-	
+
 	//user
 	//login by email only.
-	public void login(String email,String password) {
-		
+//	public User checkLogin(Login login) {
+//		User user = userRepository.findByEmail(login.getEmail());
+//			return user;
+//	}
+
+	public String generateJwtToken(User user) {
+		Map<String, String> claims = new HashMap<>();
+		claims.put("role", user.getRole());
+			return Jwts.builder()
+					.setClaims(claims)
+					.setSubject(user.getId())
+					.setIssuedAt(new Date())
+					.setExpiration(new Date(System.currentTimeMillis() + 1*60*1000 ))
+					.signWith(SignatureAlgorithm.HS256,jwtSecret)
+					.compact();
+
+//					.signWith(SignatureAlgorithm.HS256, jwtSecret.getBytes("UTF-8"))
 	}
+
+	public String decodeJwt(String token){
+		String payload = token.split("\\.")[1];
+		return new String(Base64.getDecoder().decode(payload));
+	}
+
+	public TokenItem tokenItemFile(String jsonFile){
+		Gson gson = new Gson();
+		TokenItem tokenItem = gson.fromJson(jsonFile, TokenItem.class);
+		return tokenItem;
+
+	}
+
+	public Optional<User> getUserByToken(String token){
+		String userJson = decodeJwt(token);
+		TokenItem tokenItem = tokenItemFile(userJson);
+		Optional<User> userByIdToken = userRepository.findById(tokenItem.getSub());
+		return userByIdToken;
+	}
+
+	public String sha256Code(String password) throws NoSuchAlgorithmException {
+		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+		messageDigest.update(password.getBytes());
+
+		byte[] digest = messageDigest.digest();
+		StringBuffer stringBuffer = new StringBuffer();
+		for (byte b : digest){
+			stringBuffer.append(String.format("%02x", b & 0xff));
+		}
+		return stringBuffer.toString();
+	}
+
+
+
+//	register
+	public boolean checkEmailExit(Register register){
+        User user = userRepository.findByEmailUser(register.getEmail());
+        if(user != null){
+            return true;
+        }
+        return false;
+    }
+
+	public User insert(User user){
+		return userRepository.insert(user);
+	}
+
+	public List<Role> getRoles(){
+		return roleRepository.findAll();
+	}
+
+	public List<User> getUsers(){
+		return userRepository.findAll();
+	}
+
 	public void register() {
-		
+
 	}
 	public void googleLogin() {
-		
+
 	}
 	public void facebookLogin() {
-		
+
 	}
 	public void logOut() {
-		
+
 	}
 	//forgot password
 	public void resetPassword() {
-		
+
 	}
 	public void changePassword() {
-		
+
 	}
 
 	//phu
@@ -114,6 +194,7 @@ public class UserService {
 
 		return size;
 	}
+
 
 	public User findByEmail(String email) {
 		List<User> list = userRepository.findByEmail(email);
