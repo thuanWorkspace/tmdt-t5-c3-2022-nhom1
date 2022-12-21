@@ -33,12 +33,10 @@ export default function Service() {
         console.log(err);
       });
   }, []);
-  
 
   return (
     <>
-      <Header />
-      <div className="w-full mt-16 relative ">
+      <div className="w-full mt-16 mb-16 relative ">
         <h2 className="text-center font-medium text-xl">GÓI DỊCH VỤ</h2>
         <div className="w-3/4 m-auto flex justify-around">
           {products.map((product, index) => (
@@ -50,7 +48,7 @@ export default function Service() {
                 <h2 className="text-red-600 font-medium ">
                   {product.product_name}
                 </h2>
-                <h2 className="mt-3">CHỈ TỪ {product.price}/THÁNG</h2>
+                <h2 className="mt-3">CHỈ TỪ {product.price}$/THÁNG</h2>
                 <h3 className="mb-4">
                   Dành cho khách hàng có nhu cầu TẢI FILE với tốc độ cao
                 </h3>
@@ -64,14 +62,20 @@ export default function Service() {
                   MUA NGAY
                 </Link>
                 <ul className="mt-3">
-                  <li className="mt-3">Dung lượng lưu trữ: 100TB</li>
-                  <li className="mt-3">Không giới hạn thời gian sử dụng</li>
+                  <li className="mt-3">
+                    Dung lượng lưu trữ:{" "}
+                    {(product.storage / 1073741824).toFixed(0) + "GB"}
+                  </li>
+
                   <li className="mt-3">Tốc độ download/upload cao</li>
-                  <li className="mt-3">Dung lượng tải: 100-150GB/ngày</li>
+                  <li className="mt-3 mb-6">
+                    Dung lượng tải:{" "}
+                    {(product.transfer / 1073741824).toFixed(0) + "GB"}/ngày
+                  </li>
                 </ul>
                 <Link
                   ref={buttonRef}
-                  className="hover:text-red-500 "
+                  className="hover:text-red-500  "
                   onClick={(e) => {
                     handleClickOpen(e);
                     setProductDetail(product);

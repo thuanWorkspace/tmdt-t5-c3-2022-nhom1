@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.service.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

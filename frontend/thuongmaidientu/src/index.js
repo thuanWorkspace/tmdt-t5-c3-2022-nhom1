@@ -14,24 +14,35 @@ import { AppContext, Provider } from "./Context/AppContext";
 import Admin from "./components/Admin";
 import Paypal from "./components/Paypal";
 
+import InforUser from "./components/InforUser";
+import { AppProvider } from "./components/Context/AppContext";
+import Content from "./components/Content";
+import ForgotPassword from "./components/ForgotPassword";
+import ChangePassword from "./components/ChangePassword";
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider>
+    <AppProvider>
       <Router>
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/file/manager" element={<App />} />
           <Route path="/" element={<Navbar />} />
+          <Route path="/user/infor" element={<InforUser />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/service" element={<Service />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/pay/:price" element={<Paypal />} />
+          <Route path="/content" element={<Content />} />
         </Routes>
       </Router>
-    </Provider>
+    </AppProvider>
   </React.StrictMode>
 );
 
