@@ -1,9 +1,12 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 import { AppContext } from "./Context/AppContext";
 
 function Content() {
-  const { products } = useContext(AppContext);
+  const { files, state } = useContext(AppContext);
+  const [file, setFile] = useState();
+  const formData = new FormData();
+  formData.append("file", file);
+  console.log(file);
   return (
     <div className="">
       <nav
@@ -14,13 +17,21 @@ function Content() {
         <i className="fa fa-home text-2xl"></i>
         <ul className="nav nav-pills ">
           <li className="nav-item border-2 p-x-6 ml-8  bg-red-600 rounded-sm">
-            <Link
+            <label
+              htmlFor="upload"
               className="nav-link px-12  text-white"
               href="#scrollspyHeading2"
             >
               <i className="fa fa-plus mr-4"></i>
               UPLOAD FILE
-            </Link>
+            </label>
+            <input
+              value={file}
+              onChange={(e) => setFile(e.target.value)}
+              type="file"
+              id="upload"
+              hidden
+            />
           </li>
         </ul>
       </nav>
@@ -33,7 +44,7 @@ function Content() {
             <th scope="col">Hoạt Động</th>
           </tr>
         </thead>
-        {products.map((product, index) => (
+        {files.map((file, index) => (
           <tbody key={index}>
             <tr>
               <th
@@ -41,31 +52,15 @@ function Content() {
                 className="flex justify-center items-center space-x-3"
               >
                 <input type="checkbox" />
-                <i className="fa fa-folder"></i>
-                <h3>{product.product_name}</h3>
+                <h3>{file.file_name}</h3>
               </th>
 
-              <td>_</td>
-              <td>Public</td>
+              <td>{(file.size / 1024).toFixed(1) + "KB"}</td>
+              <td>{state}</td>
               <td className=" flex w-8  m-auto items-center ">
                 <i className="fa fa-download mr-6"></i>
                 <i className="fa fa-share"></i>
               </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <input type="checkbox" />
-              </th>
-              <td></td>
-              <td>Private</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <input type="checkbox" />
-              </th>
-              <td colSpan="2">Larry the Bird</td>
-              <td>@twitter</td>
             </tr>
           </tbody>
         ))}

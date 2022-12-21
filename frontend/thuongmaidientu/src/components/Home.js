@@ -44,7 +44,6 @@ function Home() {
             QUẢN LÝ TẬP TIN
           </Link>
         </span>
-        <Service />
       </span>
     </div>
   );
