@@ -37,13 +37,6 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	//user
-	//login by email only.
-//	public User checkLogin(Login login) {
-//		User user = userRepository.findByEmail(login.getEmail());
-//			return user;
-//	}
-
 	public String generateJwtToken(User user) {
 		Map<String, String> claims = new HashMap<>();
 		claims.put("role", user.getRole());
@@ -67,7 +60,6 @@ public class UserService {
 		Gson gson = new Gson();
 		TokenItem tokenItem = gson.fromJson(jsonFile, TokenItem.class);
 		return tokenItem;
-
 	}
 
 	public Optional<User> getUserByToken(String token){
@@ -88,17 +80,6 @@ public class UserService {
 		}
 		return stringBuffer.toString();
 	}
-
-
-
-//	register
-	public boolean checkEmailExit(Register register){
-        User user = userRepository.findByEmailUser(register.getEmail());
-        if(user != null){
-            return true;
-        }
-        return false;
-    }
 
 	public User insert(User user){
 		return userRepository.insert(user);

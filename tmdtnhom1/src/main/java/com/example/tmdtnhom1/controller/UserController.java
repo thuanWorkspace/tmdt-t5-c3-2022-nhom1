@@ -50,7 +50,6 @@ public class UserController {
             } else {
                 return new ResponseEntity<>("password incorrect", HttpStatus.BAD_REQUEST);
             }
-//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -93,11 +92,11 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getUserByToken/{token}")
+        @GetMapping("/getUserByToken/{token}")
     public ResponseEntity<User> getUserByToken(@PathVariable("token") String token) {
         try {
             Optional<User> getUserBytoken = userService.getUserByToken(token);
-            if (getUserBytoken.isPresent()) {
+            if (getUserBytoken.isPresent() && checkLoginService(token)) {
                 return new ResponseEntity<User>(getUserBytoken.get(), HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -106,24 +105,19 @@ public class UserController {
         }
     }
 
-    @GetMapping("/rolename")
-    public String getRoleById(String id) {
-        return null;
-    }
-
     // hieu
     // api: /register
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody Register register) {
         try {
-            boolean emailExit = userService.checkEmailExit(register);
+            User userExit = userService.findByEmail(register.getEmail());
             String passSha256 = userService.sha256Code(register.getPassword());
-            if (!emailExit) {
+            if (userExit == null) {
                 User newUser = userService.insert(new User(register.getUsername(), register.getEmail(), passSha256, 0,
                         "637f93a592c54d6cc0ff507b", register.getGender()));
                 return new ResponseEntity<User>(newUser, HttpStatus.OK);
             }
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("email ton tai",HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
