@@ -19,7 +19,7 @@ public class File {
         this.size = size;
     }
 
-    public File(){
+    public File(String jsonFile){
         super();
     }
 

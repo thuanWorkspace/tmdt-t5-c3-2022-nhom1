@@ -2,11 +2,20 @@ package com.example.tmdtnhom1.model;
 
 import com.example.tmdtnhom1.service.ProductService;
 import com.example.tmdtnhom1.service.UserProductService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+
+import java.util.Collection;
 import java.util.List;
 
+
+@Data
+@AllArgsConstructor
 @Document(collection = "User")
 public class User {
 	@Id
@@ -19,11 +28,12 @@ public class User {
 	private String gender;
 	private double data;
 
+
 	public static final int score_factor = 10;//hệ số tỷ lệ giữa điểm và tiền
 	public User() {
 	}
 
-	
+
 
 	public User(String username, String email, String password, int score, String role, String gender) {
 		super();
@@ -35,15 +45,20 @@ public class User {
 		this.gender = gender;
 	}
 
+	public User(String id, String username, String email, String password, int score, String role, String gender) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.score = score;
+		this.role = role;
+		this.gender = gender;
+	}
 
 
 	public String getId() {
 		return id;
 	}
-
-	
-
-	
 
 	public User(String username, String email, String password, int score, String role, String gender, double data) {
 		super();
@@ -88,7 +103,7 @@ public class User {
 		this.score = score;
 	}
 
-	
+
 
 	public String getRole() {
 		return role;
@@ -130,12 +145,5 @@ public class User {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", score="
-				+ score + ", role=" + role + ", gender=" + gender + "]";
-	}
-
 
 }
