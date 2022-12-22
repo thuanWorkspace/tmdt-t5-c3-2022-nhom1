@@ -1,8 +1,14 @@
 package com.example.tmdtnhom1.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 @Document(collection = "File")
 public class File {
     @Id
@@ -11,17 +17,13 @@ public class File {
     private String owner;
     private double size;
 
-
     public File(String name, String owner, double size) {
-        super();
         this.file_name = name;
         this.owner = owner;
         this.size = size;
     }
 
-    public File(String jsonFile){
-        super();
-    }
+    
 
     public String getOwner() {
         return owner;

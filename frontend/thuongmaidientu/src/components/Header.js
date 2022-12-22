@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "./Context/AppContext";
 
 function Header() {
-  const { users, handleSearch } = useContext(AppContext);
+  const { users } = useContext(AppContext);
   return (
     <div className="col-span-2 flex justify-between text-center  bg-slate-100 text-xl items-center p-1 shadow-xl">
       <Link
@@ -28,7 +28,6 @@ function Header() {
           placeholder="Tìm kiếm"
           className="outline-none border-solid"
           style={{ width: "800px" }}
-          onChange={handleSearch}
         />
         <i className="fa fa-search translate-x-[-3rem] translate-y-[0.3rem] items-center "></i>
       </span>
