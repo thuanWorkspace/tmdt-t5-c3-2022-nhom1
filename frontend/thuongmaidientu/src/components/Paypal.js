@@ -27,10 +27,10 @@ export default function Paypal() {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          console.log(order);
+          console.log('paypal success',order);
         },
         onError: (err) => {
-          console.log(err);
+          console.log('paypal cancel',err);
         },
       })
       .render(paypal.current);

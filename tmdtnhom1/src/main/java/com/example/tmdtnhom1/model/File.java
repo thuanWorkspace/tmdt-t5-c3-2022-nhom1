@@ -1,7 +1,10 @@
 package com.example.tmdtnhom1.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Document(collection = "File")
 public class File {
@@ -13,8 +16,14 @@ public class File {
 
 
     public File(String name, String owner, double size) {
-        super();
         this.file_name = name;
+        this.owner = owner;
+        this.size = size;
+    }
+
+    public File(String id, String file_name, String owner, double size) {
+        this.id = id;
+        this.file_name = file_name;
         this.owner = owner;
         this.size = size;
     }

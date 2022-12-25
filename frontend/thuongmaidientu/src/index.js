@@ -10,7 +10,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Service from "./components/Service";
 import Payment from "./components/Payment";
-import { AppContext, Provider } from "./Context/AppContext";
+// import { AppContext, Provider } from "./Context/AppContext";
 import Admin from "./components/Admin";
 import Paypal from "./components/Paypal";
 
@@ -39,7 +39,7 @@ root.render(
           <Route path="/payment" element={<Payment />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/pay/:price" element={<Paypal />} />
-          <Route path="/content" element={<Content />} />
+          {/* <Route path="/content" element={<Content />} /> */}
         </Routes>
       </Router>
     </AppProvider>
