@@ -55,12 +55,12 @@ public class FileService {
             for (User_file uf : listpublic){
                 if (f.getId().equals(uf.getId_file())){
                     result.add(f);
-                    listpublic.remove(uf);
+//                    listpublic.remove(uf); //ConcurrentModificationException
                 }
             }
         }
 
-        System.out.println(name);
+        System.out.println(name+result.size());
         return result;
     }
 
