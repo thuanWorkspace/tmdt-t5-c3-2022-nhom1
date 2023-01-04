@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.tmdtnhom1.model.User;
 import com.example.tmdtnhom1.service.UserService;
 
 /**

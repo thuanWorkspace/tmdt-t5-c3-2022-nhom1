@@ -10,11 +10,16 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Service from "./components/Service";
 import Payment from "./components/Payment";
+// import { AppContext, Provider } from "./Context/AppContext";
+import Admin from "./components/Admin";
+import Paypal from "./components/Paypal";
+
 import InforUser from "./components/InforUser";
 import { AppProvider } from "./components/Context/AppContext";
 import Content from "./components/Content";
 import ForgotPassword from "./components/ForgotPassword";
 import ChangePassword from "./components/ChangePassword";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -32,7 +37,9 @@ root.render(
           <Route path="/register" element={<Register />} />
           <Route path="/service" element={<Service />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/content" element={<Content />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/pay/:price" element={<Paypal />} />
+          {/* <Route path="/content" element={<Content />} /> */}
         </Routes>
       </Router>
     </AppProvider>

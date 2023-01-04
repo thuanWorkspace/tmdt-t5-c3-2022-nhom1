@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author MyPC
  *
  */
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userfileapi")
 public class UserFileController {
@@ -194,10 +195,9 @@ public class UserFileController {
 		}
 	}
 
-	@PutMapping("/user_file/id")
-	public ResponseEntity<String> update(@RequestBody User_file userFile){
-		System.out.println(userFile.toString());
-		List<User_file> list = userFileService.GetId(userFile.getId_user(), userFile.getId_file());
+	@GetMapping("/user_file/id/{owner_id}/{file_id}")
+	public ResponseEntity<String> update(@PathVariable String owner_id ,@PathVariable String file_id){
+		List<User_file> list = userFileService.GetId(owner_id, file_id);
 		if (list.size() != 1){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -22,6 +22,7 @@ import java.util.List;
  * @author MyPC
  *
  */
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("/userproductapi")
 public class UserProductController {
@@ -64,6 +65,19 @@ public class UserProductController {
 			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/checkscore/{id_user}/{id_product}/{score}")
+	public ResponseEntity<String> checkScore(@PathVariable String id_user,@PathVariable String id_product,@PathVariable int score){
+		try{
+			userProductService.checkScoreInputProduct(id_user,id_product,score);
+			return new ResponseEntity<String>("OK",HttpStatus.OK);
+		} catch (IndexOutOfBoundsException | NumberFormatException e){
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.OK);
+		}
+		catch (Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

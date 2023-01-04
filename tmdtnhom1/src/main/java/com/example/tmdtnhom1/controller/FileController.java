@@ -51,6 +51,7 @@ public class FileController {
 
             return new ResponseEntity<>(list,HttpStatus.OK);
         } catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -104,6 +105,7 @@ public class FileController {
 
             return new ResponseEntity<>(result,HttpStatus.OK);
         } catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
